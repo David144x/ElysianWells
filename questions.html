@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Questionnaire — Elysian Wells</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  a { color: inherit; text-decoration: none; }
+  body { font-family: 'Jost', sans-serif; background: #F8F4ED; color: #2A2A2A; overflow-x: hidden; }
+
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center;
+transition: all 0.4s ease;
+}
+nav.scrolled { background: rgba(26,26,26,0.97); backdrop-filter: blur(12px); box-shadow: 0 2px 30px rgba(0,0,0,0.4); }
+.nav-logo { font-family: ‘Cormorant Garamond’, serif; font-size: 1.2rem; font-weight: 400; color: #F8F4ED !important; letter-spacing: 0.08em; text-decoration: none !important; text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-link { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(248,244,237,0.5); text-decoration: none; transition: color 0.3s; }
+.nav-link:hover, .nav-link.active { color: #D4A853; }
+.nav-cta { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A853 !important; border: 2px solid #D4A853; padding: 8px 20px; transition: all 0.3s; text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+.nav-cta:hover { background: #D4A853; color: #1C3A2A !important; text-shadow: none; }
+
+.hero { min-height: 55vh; background: #1C3A2A; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 80px 80px; position: relative; overflow: hidden; }
+.hero::after { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 120px; background: linear-gradient(to bottom, rgba(18,30,22,0.75) 0%, transparent 100%); z-index: 1; pointer-events: none; }
+.hero-content { position: relative; z-index: 2; max-width: 800px; }
+.hero-eyebrow { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #D4A853; display: block; margin-bottom: 1.2rem; }
+.hero h1 { font-family: ‘Cormorant Garamond’, serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 300; color: #F8F4ED; line-height: 1.05; margin-bottom: 1.5rem; }
+.hero h1 em { font-style: italic; color: #D4A853; }
+.hero-rule { width: 48px; height: 1px; background: #D4A853; margin-bottom: 1.5rem; opacity: 0.6; }
+.hero p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: rgba(248,244,237,0.65); max-width: 640px; }
+
+.intro-strip { background: #EDE8DF; padding: 60px 80px; display: flex; align-items: center; gap: 4rem; border-bottom: 1px solid #C8BEA8; }
+.intro-stat { text-align: center; flex-shrink: 0; }
+.intro-stat-num { font-family: ‘Cormorant Garamond’, serif; font-size: 3rem; font-weight: 300; color: #1C3A2A; display: block; line-height: 1; margin-bottom: 0.3rem; }
+.intro-stat-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #5A8A6A; }
+.intro-divider { width: 1px; height: 60px; background: #C8BEA8; flex-shrink: 0; }
+.intro-strip p { font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #555; }
+
+.sec { padding: 80px 80px; }
+.sec-inner { max-width: 860px; margin: 0 auto; }
+.sec-cream { background: #F8F4ED; }
+.sec-warm  { background: #EDE8DF; }
+.sec-mist  { background: #F2EEE6; }
+.sec-dark  { background: #1C3A2A; }
+
+.sec-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 1rem; }
+.sec-label-gold { color: rgba(212,168,83,0.7); }
+h2 { font-family: ‘Cormorant Garamond’, serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; color: #1C3A2A; line-height: 1.15; margin-bottom: 1rem; }
+.h2-light { color: #F8F4ED; }
+.rule { width: 40px; height: 1px; background: #A07830; margin: 1.5rem 0 2.5rem; }
+.rule-light { background: rgba(212,168,83,0.4); }
+.sec-desc { font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #555; margin-bottom: 2rem; }
+.sec-desc-light { color: rgba(248,244,237,0.55); }
+
+/* Personal info grid */
+.fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: #C8BEA8; margin-top: 2rem; }
+.field-cell { background: #F8F4ED; padding: 1.6rem 1.8rem; }
+.field-cell:nth-child(even) { background: #F2EEE6; }
+
+label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 0.6rem; }
+.label-gold { color: rgba(212,168,83,0.6); }
+
+input[type=“text”], input[type=“email”], select, textarea {
+width: 100%; font-family: ‘Jost’, sans-serif; font-size: 0.92rem; font-weight: 300;
+color: #1C3A2A; background: transparent; border: none; border-bottom: 1px solid #C8BEA8;
+padding: 0.5rem 0; outline: none; transition: border-color 0.3s; -webkit-appearance: none; appearance: none;
+}
+input:focus, select:focus, textarea:focus { border-bottom-color: #A07830; }
+input::placeholder, textarea::placeholder { color: #B8B0A0; }
+select { cursor: pointer; }
+select option { color: #1C3A2A; background: #F8F4ED; }
+textarea { resize: vertical; min-height: 90px; line-height: 1.7; }
+
+.input-dark { color: rgba(248,244,237,0.8); border-bottom-color: rgba(255,255,255,0.15); }
+.input-dark:focus { border-bottom-color: #D4A853; }
+.input-dark::placeholder { color: rgba(255,255,255,0.2); }
+
+/* Question blocks */
+.q-wrap { border: 1.5px solid #C8BEA8; margin-top: 2rem; overflow: hidden; }
+.q-wrap-dark { border: 1.5px solid rgba(255,255,255,0.08); margin-top: 2rem; overflow: hidden; }
+
+.q-block { background: #F8F4ED; padding: 1.8rem 2rem; border-bottom: 1.5px solid #C8BEA8; }
+.q-block:last-child { border-bottom: none; }
+.q-block-alt { background: #F2EEE6; }
+.q-block-dark { background: rgba(255,255,255,0.03); padding: 1.8rem 2rem; border-bottom: 1.5px solid rgba(255,255,255,0.07); }
+.q-block-dark:last-child { border-bottom: none; }
+.q-block-dark-alt { background: rgba(255,255,255,0.055); }
+
+.q-header { display: flex; gap: 1.4rem; align-items: flex-start; margin-bottom: 1.2rem; }
+.q-num { font-family: ‘Cormorant Garamond’, serif; font-size: 1.8rem; font-weight: 300; color: rgba(160,120,48,0.22); line-height: 1; flex-shrink: 0; width: 2rem; text-align: right; margin-top: 0.1rem; }
+.q-num-dark { color: rgba(212,168,83,0.18); }
+.q-text { font-family: ‘Cormorant Garamond’, serif; font-size: 1.12rem; font-weight: 500; color: #1C3A2A; line-height: 1.35; display: block; margin-bottom: 0.3rem; }
+.q-text-light { color: #F8F4ED; }
+.q-note { font-size: 0.78rem; font-weight: 300; color: #999; line-height: 1.6; font-style: italic; }
+.q-note-light { color: rgba(248,244,237,0.35); }
+.q-input { padding-left: 3.4rem; }
+
+/* Submit */
+.submit-sec { background: #1C3A2A; padding: 80px 80px; text-align: center; }
+.submit-inner { max-width: 640px; margin: 0 auto; }
+.submit-inner p { font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: rgba(248,244,237,0.55); margin-bottom: 2.5rem; }
+.btn-submit { font-family: ‘Jost’, sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #1C3A2A; background: #D4A853; border: none; padding: 18px 52px; cursor: pointer; transition: all 0.3s; }
+.btn-submit:hover { background: #F8F4ED; }
+.submit-note { font-size: 0.75rem; font-weight: 300; color: rgba(248,244,237,0.25); margin-top: 1.5rem; font-style: italic; display: block; }
+.error-msg { color: #D4A853; font-size: 0.82rem; margin-top: 1rem; display: none; }
+
+/* Closing quote */
+.closing { background: #2A2A2A; padding: 90px 80px; text-align: center; }
+.closing-mark { font-family: ‘Cormorant Garamond’, serif; font-size: 7rem; font-weight: 300; color: rgba(212,168,83,0.1); line-height: 0.5; display: block; margin-bottom: 1.5rem; }
+.closing p { font-family: ‘Cormorant Garamond’, serif; font-size: clamp(1.15rem, 2.2vw, 1.75rem); font-weight: 300; font-style: italic; color: #F8F4ED; line-height: 1.55; max-width: 780px; margin: 0 auto 2rem; }
+.closing-rule { width: 40px; height: 1px; background: #D4A853; margin: 0 auto 1.5rem; opacity: 0.5; }
+.closing-attr { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #D4A853; }
+
+footer { background: #1A1A1A; padding: 60px 80px; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
+.footer-logo { font-family: ‘Cormorant Garamond’, serif; font-size: 1.6rem; color: #F8F4ED; margin-bottom: 0.5rem; letter-spacing: 0.1em; display: block; }
+footer p { font-size: 0.78rem; color: rgba(255,255,255,0.22); line-height: 1.9; max-width: 600px; margin: 0 auto; }
+footer a { color: #D4A853; }
+
+@media (max-width: 900px) {
+.hero { padding: 120px 24px 60px; }
+.intro-strip { padding: 40px 24px; flex-direction: column; gap: 2rem; }
+.intro-divider { width: 60px; height: 1px; }
+.sec { padding: 60px 24px; }
+.fields-grid { grid-template-columns: 1fr; }
+.submit-sec { padding: 60px 24px; }
+.closing { padding: 70px 24px; }
+footer { padding: 50px 24px; }
+.q-input { padding-left: 0; }
+}
+@media (max-width: 600px) {
+.nav-links .nav-link { display: none; }
+}
+</style>
+
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">🌿 Elysian Wells</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="apply.html" class="nav-link active">Apply</a>
+    <a href="apply.html" class="nav-cta">Apply Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-eyebrow">Elysian Wells · Founding Member Application</span>
+    <h1>Nineteen questions.<br><em>One honest conversation.</em></h1>
+    <div class="hero-rule"></div>
+    <p>These questions are designed not to test you but to give you the space to think clearly about who you are, what you are bringing, and whether this is genuinely the right fit — for you and for the community. There are no right answers. Only honest ones.</p>
+  </div>
+</section>
+
+<div class="intro-strip">
+  <div class="intro-stat">
+    <span class="intro-stat-num">19</span>
+    <span class="intro-stat-label">Questions</span>
+  </div>
+  <div class="intro-divider"></div>
+  <div class="intro-stat">
+    <span class="intro-stat-num">5</span>
+    <span class="intro-stat-label">Sections</span>
+  </div>
+  <div class="intro-divider"></div>
+  <p>Take the time your responses deserve. The quality of your answers is the first thing we will come to know about you. Your responses are sent directly and privately to the founding director upon submission.</p>
+</div>
+
+<form id="appForm" onsubmit="return false;">
+
+<!-- SECTION 1: ABOUT YOU -->
+
+<div class="sec sec-cream"><div class="sec-inner">
+  <span class="sec-label">Section One</span>
+  <h2>About You</h2>
+  <div class="rule"></div>
+  <p class="sec-desc">We keep identifying details minimal at this stage. Full legal details are requested only at the membership agreement stage, following a successful selection process.</p>
+  <div class="fields-grid">
+    <div class="field-cell">
+      <label for="f_name">First Name &amp; Last Initial</label>
+      <input type="text" id="f_name" placeholder="e.g. David K.">
+    </div>
+    <div class="field-cell">
+      <label for="f_email">Email Address</label>
+      <input type="email" id="f_email" placeholder="your@email.com">
+    </div>
+    <div class="field-cell">
+      <label for="f_age">Age Range</label>
+      <select id="f_age">
+        <option value="">Select your range</option>
+        <option>20–29</option><option>30–39</option><option>40–49</option>
+        <option>50–59</option><option>60–69</option><option>70+</option>
+      </select>
+    </div>
+    <div class="field-cell">
+      <label for="f_location">Current Location</label>
+      <input type="text" id="f_location" placeholder="City, Country">
+    </div>
+    <div class="field-cell">
+      <label for="f_applying">Applying As</label>
+      <select id="f_applying">
+        <option value="">Select</option>
+        <option>Individual</option>
+        <option>Couple — submitting individual applications</option>
+      </select>
+    </div>
+    <div class="field-cell">
+      <label for="f_source">How You Found Us</label>
+      <select id="f_source">
+        <option value="">Select</option>
+        <option>Word of mouth</option><option>Online search</option>
+        <option>Social media</option><option>Article or podcast</option><option>Other</option>
+      </select>
+    </div>
+  </div>
+</div></div>
+
+<!-- SECTION 2: MOTIVATION & READINESS -->
+
+<div class="sec sec-warm"><div class="sec-inner">
+  <span class="sec-label">Section Two</span>
+  <h2>Motivation &amp; Readiness</h2>
+  <div class="rule"></div>
+  <p class="sec-desc">These questions distinguish genuine readiness from a well-intentioned impulse. The quality of your reflection matters more than the content of your résumé.</p>
+  <div class="q-wrap">
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">01</span><div><span class="q-text">What brings you to Elysian Wells specifically, and how long have you been thinking about a life change of this kind?</span><span class="q-note">Distinguishes impulse from genuine readiness.</span></div></div>
+      <div class="q-input"><textarea id="q01" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block q-block-alt">
+      <div class="q-header"><span class="q-num">02</span><div><span class="q-text">What does your current life look like, and what specifically are you leaving behind?</span><span class="q-note">Reveals whether you have thought honestly about the transition, or are romanticising an escape.</span></div></div>
+      <div class="q-input"><textarea id="q02" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">03</span><div><span class="q-text">Have you ever lived communally, travelled extensively, or lived outside your home country? What did you learn?</span><span class="q-note">Prior experience with discomfort, novelty, and shared living is one of the strongest predictors of success.</span></div></div>
+      <div class="q-input"><textarea id="q03" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block q-block-alt">
+      <div class="q-header"><span class="q-num">04</span><div><span class="q-text">What does your support network think about this decision?</span><span class="q-note">Tells us whether you are making a considered choice — and whether your relationships are strong enough to survive the disagreement.</span></div></div>
+      <div class="q-input"><textarea id="q04" placeholder="Your answer…"></textarea></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- SECTION 3: SKILLS & CONTRIBUTION -->
+
+<div class="sec sec-cream"><div class="sec-inner">
+  <span class="sec-label">Section Three</span>
+  <h2>Skills &amp; Contribution</h2>
+  <div class="rule"></div>
+  <p class="sec-desc">A community of twelve runs on the real competencies of the people inside it. These questions reveal what you bring — and what you are still learning.</p>
+  <div class="q-wrap">
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">05</span><div><span class="q-text">Which stewardship role resonates most with you, and what specific experience or skills make you suited for it?</span><span class="q-note">The most important practical question on this form. Read the eleven roles carefully before responding.</span></div></div>
+      <div class="q-input"><textarea id="q05" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block q-block-alt">
+      <div class="q-header"><span class="q-num">06</span><div><span class="q-text">What can you build, grow, fix, or make with your hands?</span><span class="q-note">List it specifically — tools you can use, things you have made, skills you have built over time.</span></div></div>
+      <div class="q-input"><textarea id="q06" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">07</span><div><span class="q-text">Describe a time you contributed to something larger than yourself. What was your role and what did you learn about how you show up for others?</span><span class="q-note">The specifics of the example matter more than its scale.</span></div></div>
+      <div class="q-input"><textarea id="q07" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block q-block-alt">
+      <div class="q-header"><span class="q-num">08</span><div><span class="q-text">What skills are you hoping to develop at Elysian Wells that you don't currently have?</span><span class="q-note">Shows self-awareness and genuine appetite for growth.</span></div></div>
+      <div class="q-input"><textarea id="q08" placeholder="Your answer…"></textarea></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- SECTION 4: CHARACTER & CONFLICT -->
+
+<div class="sec sec-dark"><div class="sec-inner">
+  <span class="sec-label sec-label-gold">Section Four</span>
+  <h2 class="h2-light">Character &amp; Conflict</h2>
+  <div class="rule rule-light"></div>
+  <p class="sec-desc sec-desc-light">Community life surfaces conflict inevitably. These questions reveal emotional maturity more reliably than almost any other measure. Answer them honestly.</p>
+  <div class="q-wrap-dark">
+    <div class="q-block-dark">
+      <div class="q-header"><span class="q-num q-num-dark">09</span><div><span class="q-text q-text-light">Describe the most difficult interpersonal conflict you have navigated. How did you handle it and what would you do differently?</span><span class="q-note q-note-light">The single most revealing question on this form.</span></div></div>
+      <div class="q-input"><textarea id="q09" class="input-dark" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block-dark q-block-dark-alt">
+      <div class="q-header"><span class="q-num q-num-dark">10</span><div><span class="q-text q-text-light">What are your edges — the conditions or behaviours in others that you find genuinely difficult to be around?</span><span class="q-note q-note-light">Someone who claims to have no edges is either dishonest or unexamined.</span></div></div>
+      <div class="q-input"><textarea id="q10" class="input-dark" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block-dark">
+      <div class="q-header"><span class="q-num q-num-dark">11</span><div><span class="q-text q-text-light">How do you respond when you strongly disagree with a group decision?</span><span class="q-note q-note-light">Reveals your relationship to authority and collective process.</span></div></div>
+      <div class="q-input"><textarea id="q11" class="input-dark" placeholder="Your answer…"></textarea></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- SECTION 5: PRACTICAL COMMITMENT -->
+
+<div class="sec sec-mist"><div class="sec-inner">
+  <span class="sec-label">Section Five</span>
+  <h2>Practical Commitment</h2>
+  <div class="rule"></div>
+  <p class="sec-desc">These questions address the practical realities of the transition. Financial transparency protects both the applicant and the community.</p>
+  <div class="q-wrap">
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">12</span><div><span class="q-text">What is your current financial situation, and how are you planning to fund the founding investment and your ongoing life at Elysian Wells?</span><span class="q-note">Full financial documentation is provided to all applicants before any funds are committed.</span></div></div>
+      <div class="q-input"><textarea id="q12" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block q-block-alt">
+      <div class="q-header"><span class="q-num">13</span><div><span class="q-text">Are you applying alone or with a partner? If with a partner, how aligned are you both on this decision?</span><span class="q-note">Both people need to want this independently and genuinely.</span></div></div>
+      <div class="q-input"><textarea id="q13" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">14</span><div><span class="q-text">What does your ideal day look like at Elysian Wells three years in — specifically, how are you spending your time beyond the ten hours of community contribution?</span><span class="q-note">The specificity of the answer is itself diagnostic.</span></div></div>
+      <div class="q-input"><textarea id="q14" placeholder="Your answer…"></textarea></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- SECTION 6: VALUES & VISION -->
+
+<div class="sec sec-cream"><div class="sec-inner">
+  <span class="sec-label">Section Six</span>
+  <h2>Values &amp; Vision</h2>
+  <div class="rule"></div>
+  <p class="sec-desc">The quality of reflection in your responses here is the most important signal of all.</p>
+  <div class="q-wrap">
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">15</span><div><span class="q-text">Which of the seven founding values — truth, beauty, compassion, wisdom, prosperity, justice, freedom — do you find most natural to live by, and which do you find most challenging?</span><span class="q-note">Both answers matter equally.</span></div></div>
+      <div class="q-input"><textarea id="q15" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block q-block-alt">
+      <div class="q-header"><span class="q-num">16</span><div><span class="q-text">Why do you believe intentional communities fail, and what would you personally do to prevent that outcome here?</span><span class="q-note">Someone who has studied this history and thought hard about failure modes is exactly who this is for.</span></div></div>
+      <div class="q-input"><textarea id="q16" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">17</span><div><span class="q-text">What does financial sovereignty mean to you, and how are you currently working toward it?</span><span class="q-note">Reveals whether the applicant has thought seriously about economic independence.</span></div></div>
+      <div class="q-input"><textarea id="q17" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block q-block-alt">
+      <div class="q-header"><span class="q-num">18</span><div><span class="q-text">Is there anything about your life, health, history, or circumstances that the founding director should know before making a decision?</span><span class="q-note">Honesty here is treated as a sign of character. What is not disclosed and discovered later is a different matter entirely.</span></div></div>
+      <div class="q-input"><textarea id="q18" placeholder="Your answer…"></textarea></div>
+    </div>
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">19</span><div><span class="q-text">If you could ask the founding director of Elysian Wells one question, what would it be?</span><span class="q-note">The quality of the question tells us as much about you as any answer you have given.</span></div></div>
+      <div class="q-input"><textarea id="q19" placeholder="Your answer…"></textarea></div>
+    </div>
+  </div>
+</div></div>
+
+</form>
+
+<!-- SUBMIT -->
+
+<div class="submit-sec">
+  <div class="submit-inner">
+    <p>When you are ready, press submit below. Your responses will open in your email client, fully formatted and labelled, addressed to the founding director. Take a moment to review them before sending — this is your application.</p>
+    <button class="btn-submit" onclick="submitForm()">Submit Application</button>
+    <span class="error-msg" id="errorMsg">Please enter your name and email address before submitting.</span>
+    <span class="submit-note">Your information is held in strict confidence. Location details disclosed only to accepted members.</span>
+  </div>
+</div>
+
+<!-- CLOSING QUOTE -->
+
+<div class="closing">
+  <span class="closing-mark">"</span>
+  <p>I want to beg you, as much as I can, to be patient toward all that is unsolved in your heart and to try to love the questions themselves — live the questions now. Perhaps then, someday in the distant future, you will gradually, without even noticing it, live your way into the answer.</p>
+  <div class="closing-rule"></div>
+  <span class="closing-attr">Rainer Maria Rilke · Letters to a Young Poet</span>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <span class="footer-logo">🌿 Elysian Wells</span>
+  <span style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-style:italic;font-weight:300;color:#D4A853;letter-spacing:0.12em;display:block;margin-top:0;margin-bottom:1.5rem;">a mythopoetic community based in a beautiful part of Latin America</span>
+  <p><a href="mailto:elysianwells@proton.me">elysianwells@proton.me</a><br><br>
+  Elysian Wells is a privately organized intentional community project. Specific location details are disclosed exclusively to accepted founding members. This page is for informational purposes only and does not constitute a legal or financial commitment.<br><br>
+  © 2026 Elysian Wells. All rights reserved.</p>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
+
+  function submitForm() {
+    const name     = document.getElementById('f_name').value.trim();
+    const email    = document.getElementById('f_email').value.trim();
+    const age      = document.getElementById('f_age').value;
+    const location = document.getElementById('f_location').value.trim();
+    const applying = document.getElementById('f_applying').value;
+    const source   = document.getElementById('f_source').value;
+
+    if (!name || !email) {
+      document.getElementById('errorMsg').style.display = 'block';
+      document.getElementById('f_name').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    document.getElementById('errorMsg').style.display = 'none';
+
+    const questions = [
+      'What brings you to Elysian Wells specifically, and how long have you been thinking about a life change of this kind?',
+      'What does your current life look like, and what specifically are you leaving behind?',
+      'Have you ever lived communally, travelled extensively, or lived outside your home country? What did you learn?',
+      'What does your support network think about this decision?',
+      'Which stewardship role resonates most with you, and what specific experience or skills make you suited for it?',
+      'What can you build, grow, fix, or make with your hands?',
+      'Describe a time you contributed to something larger than yourself. What was your role and what did you learn?',
+      'What skills are you hoping to develop at Elysian Wells that you don\'t currently have?',
+      'Describe the most difficult interpersonal conflict you have navigated. How did you handle it and what would you do differently?',
+      'What are your edges — the conditions or behaviours in others that you find genuinely difficult to be around?',
+      'How do you respond when you strongly disagree with a group decision?',
+      'What is your current financial situation, and how are you planning to fund the founding investment?',
+      'Are you applying alone or with a partner? If with a partner, how aligned are you both?',
+      'What does your ideal day look like at Elysian Wells three years in?',
+      'Which founding value do you find most natural, and which most challenging?',
+      'Why do you believe intentional communities fail, and what would you do to prevent that here?',
+      'What does financial sovereignty mean to you, and how are you working toward it?',
+      'Is there anything the founding director should know before making a decision on your application?',
+      'If you could ask the founding director one question, what would it be?'
+    ];
+
+    const sections = [
+      { title: 'SECTION TWO — MOTIVATION & READINESS',   range: [0, 3]  },
+      { title: 'SECTION THREE — SKILLS & CONTRIBUTION',  range: [4, 7]  },
+      { title: 'SECTION FOUR — CHARACTER & CONFLICT',    range: [8, 10] },
+      { title: 'SECTION FIVE — PRACTICAL COMMITMENT',    range: [11, 13]},
+      { title: 'SECTION SIX — VALUES & VISION',          range: [14, 18]}
+    ];
+
+    let body = '';
+    body += '╔══════════════════════════════════════════════╗\n';
+    body += '║   ELYSIAN WELLS — FOUNDING MEMBER APPLICATION  ║\n';
+    body += '╚══════════════════════════════════════════════╝\n\n';
+    body += '▸ APPLICANT DETAILS\n';
+    body += '─────────────────────────────────────────────\n';
+    body += `Name:         ${name}\n`;
+    body += `Email:        ${email}\n`;
+    body += `Age Range:    ${age      || 'Not provided'}\n`;
+    body += `Location:     ${location || 'Not provided'}\n`;
+    body += `Applying As:  ${applying || 'Not provided'}\n`;
+    body += `Found Via:    ${source   || 'Not provided'}\n\n`;
+
+    sections.forEach(sec => {
+      body += `▸ ${sec.title}\n`;
+      body += '─────────────────────────────────────────────\n\n';
+      for (let i = sec.range[0]; i <= sec.range[1]; i++) {
+        const num = String(i + 1).padStart(2, '0');
+        const answer = (document.getElementById('q' + num)?.value.trim()) || '(No answer provided)';
+        body += `Q${num}. ${questions[i]}\n\n`;
+        body += `${answer}\n\n`;
+        body += '· · · · · · · · · · · · · · · · · · · · · ·\n\n';
+      }
+    });
+
+    body += '╔══════════════════════════════════════════════╗\n';
+    body += `║  Submitted via elysianwells.ca               ║\n`;
+    body += '╚══════════════════════════════════════════════╝';
+
+    const subject = encodeURIComponent(`Elysian Wells Application — ${name}`);
+    window.location.href = `mailto:mousetrapstudios@proton.me?subject=${subject}&body=${encodeURIComponent(body)}`;
+  }
+</script>
+
+</body>
+</html>
