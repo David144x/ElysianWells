@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Elysian Wells</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  a { color: inherit; text-decoration: none; }
+  a:link, a:visited { color: inherit; }
+
+body {
+font-family: ‘Jost’, sans-serif;
+background: #F8F4ED;
+color: #2A2A2A;
+overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+padding: 1.2rem 2.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: all 0.4s ease;
+}
+nav.scrolled {
+background: rgba(26,26,26,0.97);
+backdrop-filter: blur(12px);
+box-shadow: 0 2px 30px rgba(0,0,0,0.4);
+}
+.nav-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.2rem;
+font-weight: 400;
+color: #F8F4ED !important;
+letter-spacing: 0.08em;
+text-decoration: none !important;
+text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-link {
+font-size: 0.72rem;
+font-weight: 400;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.5);
+text-decoration: none;
+transition: color 0.3s;
+}
+.nav-link:hover { color: #D4A853; }
+.nav-link.active { color: #D4A853; }
+.nav-cta {
+font-size: 0.72rem;
+font-weight: 600;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: #D4A853 !important;
+text-decoration: none;
+border: 2px solid #D4A853;
+padding: 8px 20px;
+transition: all 0.3s;
+text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+}
+.nav-cta:hover { background: #D4A853; color: #1C3A2A !important; text-shadow: none; }
+
+/* ── HERO ── */
+.hero {
+min-height: 85vh;
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 0 80px 100px;
+overflow: hidden;
+background: #1C3A2A;
+}
+.hero-bg {
+position: absolute; inset: 0;
+background-image: url(‘https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=1800&q=80’);
+background-size: cover;
+background-position: center 30%;
+opacity: 0.35;
+transform: scale(1.04);
+animation: heroZoom 16s ease-out forwards;
+}
+@keyframes heroZoom {
+from { transform: scale(1.04); }
+to   { transform: scale(1.0); }
+}
+.hero-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(to top,
+rgba(18,30,22,0.98) 0%,
+rgba(18,30,22,0.7) 45%,
+rgba(18,30,22,0.3) 100%);
+}
+/* Top gradient ensures nav logo always readable */
+.hero::after {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 120px;
+background: linear-gradient(to bottom,
+rgba(18,30,22,0.75) 0%,
+transparent 100%);
+z-index: 1;
+pointer-events: none;
+}
+.hero-content {
+position: relative;
+z-index: 2;
+max-width: 780px;
+}
+.hero-eyebrow {
+font-size: 0.7rem;
+font-weight: 400;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: #D4A853;
+display: flex;
+align-items: center;
+gap: 1rem;
+margin-bottom: 2rem;
+opacity: 0;
+animation: fadeUp 1s ease 0.3s forwards;
+}
+.hero-eyebrow::before {
+content: ‘’;
+display: block;
+width: 36px; height: 1px;
+background: #D4A853;
+}
+.hero-h1 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(2.8rem, 6vw, 5.5rem);
+font-weight: 300;
+line-height: 1.05;
+color: #F8F4ED;
+margin-bottom: 2rem;
+opacity: 0;
+animation: fadeUp 1.1s ease 0.5s forwards;
+}
+.hero-h1 em { font-style: italic; color: #D4A853; }
+.hero-intro {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.85;
+color: rgba(248,244,237,0.6);
+max-width: 580px;
+opacity: 0;
+animation: fadeUp 1.1s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(22px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION SYSTEM ── */
+.sec {
+padding: 110px 80px;
+}
+.sec .inner {
+max-width: 1100px;
+margin: 0 auto;
+}
+.sec-cream  { background: #F8F4ED; }
+.sec-warm   { background: #EDE8DF; }
+.sec-mist   { background: #F2EEE6; }
+.sec-dark   { background: #2A2A2A; }
+.sec-ink    { background: #1A1A1A; }
+.sec-forest { background: #1C3A2A; }
+
+.sec-label {
+font-size: 0.7rem;
+font-weight: 500;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: #5A8A6A;
+display: block;
+margin-bottom: 1.2rem;
+}
+.sec-label.light { color: #D4A853; }
+
+.sec-rule {
+width: 48px; height: 1px;
+background: #A07830;
+margin: 1.8rem 0 2.8rem;
+}
+.sec-rule.light { background: #D4A853; }
+
+h2 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(2rem, 4vw, 3.2rem);
+font-weight: 300;
+line-height: 1.1;
+margin-bottom: 1rem;
+}
+.sec-cream h2, .sec-warm h2, .sec-mist h2 { color: #1C3A2A; }
+.sec-dark h2, .sec-ink h2, .sec-forest h2 { color: #F8F4ED; }
+
+/* ── NARRATIVE PROSE ── */
+.prose {
+max-width: 720px;
+}
+.prose p {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.95;
+color: #3a3a3a;
+margin-bottom: 1.6rem;
+}
+.prose p:last-child { margin-bottom: 0; }
+.prose p.lead {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.35rem;
+font-weight: 400;
+line-height: 1.6;
+color: #1C3A2A;
+margin-bottom: 2rem;
+}
+
+.prose-dark p { color: rgba(248,244,237,0.75); }
+.prose-dark p.lead { color: #F8F4ED; }
+
+/* ── PHOTO FULL BLEED ── */
+.photo-break {
+width: 100%;
+height: 520px;
+overflow: hidden;
+position: relative;
+}
+.photo-break img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+transition: transform 0.8s ease;
+}
+.photo-break:hover img { transform: scale(1.03); }
+.photo-break-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(to bottom,
+rgba(18,30,22,0.2) 0%,
+rgba(18,30,22,0.5) 100%);
+}
+.photo-break-caption {
+position: absolute;
+bottom: 2rem; left: 80px;
+font-size: 0.68rem;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.4);
+}
+
+/* ── PHOTO SPLIT ── */
+.photo-split {
+display: grid;
+grid-template-columns: 1fr 1fr;
+min-height: 580px;
+}
+.photo-split-image {
+position: relative;
+overflow: hidden;
+}
+.photo-split-image img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+transition: transform 0.7s ease;
+}
+.photo-split-image:hover img { transform: scale(1.04); }
+.photo-split-content {
+padding: 90px 70px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+/* ── THINKER QUOTE ── */
+.thinker-quote {
+padding: 90px 80px;
+position: relative;
+}
+.thinker-quote .inner {
+max-width: 860px;
+margin: 0 auto;
+text-align: center;
+}
+.thinker-quote-mark {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 7rem;
+font-weight: 300;
+line-height: 0.5;
+color: rgba(160,120,48,0.2);
+display: block;
+margin-bottom: 1.5rem;
+}
+.thinker-quote-text {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+font-weight: 300;
+font-style: italic;
+line-height: 1.45;
+color: #1C3A2A;
+margin-bottom: 2rem;
+}
+.thinker-quote-text.light { color: #F8F4ED; }
+.thinker-quote-attribution {
+font-size: 0.72rem;
+font-weight: 500;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: #D4A853;
+}
+.thinker-quote-rule {
+width: 40px; height: 1px;
+background: #D4A853;
+margin: 1.5rem auto;
+opacity: 0.5;
+}
+
+/* ── SECTION 1: ORIGIN ── */
+.origin-grid {
+display: grid;
+grid-template-columns: 1fr 420px;
+gap: 7rem;
+align-items: start;
+}
+.origin-sidebar {
+position: sticky;
+top: 120px;
+}
+.origin-sidebar-image {
+width: 100%;
+aspect-ratio: 3/4;
+overflow: hidden;
+margin-bottom: 2rem;
+}
+.origin-sidebar-image img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+filter: brightness(0.85) saturate(1.1);
+transition: transform 0.6s ease;
+}
+.origin-sidebar-image:hover img { transform: scale(1.04); }
+.origin-sidebar-note {
+font-size: 0.82rem;
+font-weight: 300;
+line-height: 1.75;
+color: #888;
+font-style: italic;
+border-left: 2px solid #C8BEA8;
+padding-left: 1.2rem;
+}
+
+/* ── SECTION 2: VISION ── */
+.vision-intro {
+max-width: 780px;
+margin: 0 auto 5rem;
+text-align: center;
+}
+.vision-intro p {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.95;
+color: rgba(248,244,237,0.72);
+margin-bottom: 1.5rem;
+}
+.vision-intro p.lead {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.4rem;
+font-weight: 300;
+font-style: italic;
+color: #F8F4ED;
+line-height: 1.5;
+margin-bottom: 2rem;
+}
+
+.vision-split {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 5rem;
+align-items: start;
+margin-top: 4rem;
+}
+.vision-split p {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.95;
+color: rgba(248,244,237,0.72);
+margin-bottom: 1.5rem;
+}
+.vision-split p:last-child { margin-bottom: 0; }
+
+/* ── SECTION 3: DESIGN ── */
+/* ── SECTION 3: DESIGN ── */
+.design-layout {
+max-width: 100%;
+}
+
+.values-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 1.5px;
+background: #C8BEA8;
+margin: 3rem 0;
+}
+.value-card {
+background: #F8F4ED;
+padding: 2rem 1.6rem;
+transition: background 0.3s;
+}
+.value-card:hover { background: #EDE8DF; }
+.value-number {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 3rem;
+font-weight: 300;
+color: rgba(160,120,48,0.15);
+display: block;
+line-height: 1;
+margin-bottom: 0.5rem;
+}
+.value-name {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.2rem;
+font-weight: 500;
+color: #1C3A2A;
+display: block;
+margin-bottom: 0.3rem;
+}
+.value-desc {
+font-size: 0.8rem;
+line-height: 1.65;
+color: #777;
+}
+
+/* ── SECTION 4: INVITATION ── */
+.invitation-wrap {
+max-width: 740px;
+margin: 0 auto;
+text-align: center;
+}
+.invitation-wrap p {
+font-size: 1.05rem;
+font-weight: 300;
+line-height: 1.95;
+color: rgba(248,244,237,0.75);
+margin-bottom: 1.6rem;
+}
+.invitation-wrap p.lead {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.5rem;
+font-weight: 300;
+font-style: italic;
+color: #F8F4ED;
+line-height: 1.45;
+margin-bottom: 2.5rem;
+}
+.invitation-wrap p.closing {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.15rem;
+font-style: italic;
+color: rgba(248,244,237,0.4);
+margin-top: 3rem;
+}
+
+.btn-gold {
+display: inline-block;
+padding: 16px 52px;
+background: #D4A853;
+color: #1C3A2A;
+font-size: 0.78rem;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+text-decoration: none;
+transition: all 0.3s;
+margin-top: 2rem;
+}
+.btn-gold:hover { background: #F8F4ED; transform: translateY(-2px); }
+
+/* ── PHILOSOPHY STRIP ── */
+.philosophy-strip {
+background: #1C3A2A;
+padding: 70px 80px;
+}
+.philosophy-strip .inner {
+max-width: 1100px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+gap: 0;
+}
+.philosophy-item {
+padding: 0 2rem;
+border-right: 1px solid rgba(255,255,255,0.08);
+text-align: center;
+}
+.philosophy-item:first-child { padding-left: 0; }
+.philosophy-item:last-child { border-right: none; padding-right: 0; }
+.philosophy-name {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.3rem;
+font-weight: 500;
+color: #D4A853;
+display: block;
+margin-bottom: 0.5rem;
+}
+.philosophy-role {
+font-size: 0.68rem;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.3);
+display: block;
+margin-bottom: 1rem;
+}
+.philosophy-desc {
+font-size: 0.85rem;
+line-height: 1.75;
+color: rgba(248,244,237,0.55);
+}
+
+/* ── POSSIBILITY SECTION ── */
+.possibility-intro {
+max-width: 760px;
+margin-bottom: 4rem;
+}
+.possibility-intro p {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.95;
+color: #3a3a3a;
+margin-bottom: 1.4rem;
+}
+.possibility-intro p.lead {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.4rem;
+font-weight: 400;
+line-height: 1.55;
+color: #1C3A2A;
+margin-bottom: 2rem;
+}
+
+.possibility-flow {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0;
+background: #C8BEA8;
+margin: 3rem 0;
+}
+.poss-item {
+background: #F8F4ED;
+padding: 2.8rem 2.5rem;
+border-bottom: 1.5px solid #C8BEA8;
+border-right: 1.5px solid #C8BEA8;
+transition: background 0.3s;
+}
+.poss-item:hover { background: #EDE8DF; }
+.poss-item:nth-child(even) { border-right: none; }
+.poss-item:nth-last-child(-n+2) { border-bottom: none; }
+.poss-role {
+font-size: 0.65rem;
+font-weight: 500;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: #5A8A6A;
+display: block;
+margin-bottom: 0.6rem;
+}
+.poss-item h4 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.25rem;
+font-weight: 500;
+color: #1C3A2A;
+margin-bottom: 0.7rem;
+line-height: 1.2;
+}
+.poss-item p {
+font-size: 0.88rem;
+line-height: 1.78;
+color: #555;
+margin: 0;
+}
+
+/* ── MYTHOPOETIC BLOCK ── */
+.mythopoetic-block {
+background: #1C3A2A;
+padding: 80px;
+margin-top: 5rem;
+position: relative;
+overflow: hidden;
+}
+.mythopoetic-block::before {
+content: ‘✦’;
+position: absolute;
+top: -20px; right: 60px;
+font-size: 18rem;
+color: rgba(212,168,83,0.04);
+line-height: 1;
+pointer-events: none;
+}
+.mythopoetic-inner {
+max-width: 800px;
+position: relative;
+z-index: 1;
+}
+.mythopoetic-block .sec-label { color: #D4A853; margin-bottom: 1.2rem; }
+.mythopoetic-block h3 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(1.8rem, 3.5vw, 3rem);
+font-weight: 300;
+color: #F8F4ED;
+line-height: 1.1;
+margin-bottom: 1.5rem;
+}
+.mythopoetic-block h3 em { font-style: italic; color: #D4A853; }
+.mythopoetic-block .sec-rule { background: #D4A853; opacity: 0.5; }
+.mythopoetic-block p {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.95;
+color: rgba(248,244,237,0.72);
+margin-bottom: 1.4rem;
+max-width: 700px;
+}
+.mythopoetic-block p:last-child { margin-bottom: 0; }
+.mythopoetic-block p.closing-line {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.25rem;
+font-style: italic;
+color: rgba(248,244,237,0.5);
+border-left: 2px solid rgba(212,168,83,0.4);
+padding-left: 1.5rem;
+margin-top: 2.5rem;
+}
+
+/* ── FOOTER ── */
+footer {
+background: #2A2A2A;
+padding: 50px 80px;
+text-align: center;
+}
+.footer-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.6rem;
+color: #F8F4ED;
+opacity: 1;
+margin-bottom: 0.5rem;
+letter-spacing: 0.1em;
+display: block;
+}
+.footer-nav {
+display: flex;
+justify-content: center;
+gap: 2rem;
+margin-bottom: 2rem;
+flex-wrap: wrap;
+}
+.footer-nav a {
+font-size: 0.72rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.3);
+text-decoration: none;
+transition: color 0.3s;
+}
+.footer-nav a:hover { color: #D4A853; }
+footer p {
+font-size: 0.78rem;
+color: rgba(255,255,255,0.22);
+line-height: 1.9;
+max-width: 600px;
+margin: 0 auto;
+}
+footer a { color: #D4A853; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+.origin-grid { grid-template-columns: 1fr; gap: 4rem; }
+.origin-sidebar { position: static; }
+.origin-sidebar-image { aspect-ratio: 16/9; }
+.vision-split { grid-template-columns: 1fr; gap: 0; }
+.values-grid { grid-template-columns: repeat(2, 1fr); }
+.philosophy-strip .inner { grid-template-columns: 1fr 1fr; gap: 3rem; }
+.philosophy-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 0 3rem; text-align: left; }
+.philosophy-item:nth-child(odd) { border-right: none; }
+.philosophy-item:last-child { border-bottom: none; padding-bottom: 0; }
+.photo-split { grid-template-columns: 1fr; }
+.photo-split-image { min-height: 420px; }
+.possibility-flow { grid-template-columns: 1fr; }
+.poss-item { border-right: none; }
+.poss-item:nth-last-child(-n+2) { border-bottom: 1.5px solid #C8BEA8; }
+.poss-item:last-child { border-bottom: none; }
+.mythopoetic-block { padding: 60px 40px; }
+}
+@media (max-width: 768px) {
+.hero { padding: 0 24px 80px; }
+.sec { padding: 80px 24px; }
+.thinker-quote { padding: 70px 24px; }
+.photo-break { height: 360px; }
+.photo-break-caption { left: 24px; }
+.photo-split-content { padding: 60px 24px; }
+.philosophy-strip { padding: 60px 24px; }
+.values-grid { grid-template-columns: 1fr 1fr; }
+.mythopoetic-block { padding: 50px 24px; }
+footer { padding: 50px 24px; }
+nav { padding: 1rem 1.5rem; }
+.nav-link { display: none; }
+/* Stack possibility cards on mobile */
+[style*=“grid-template-columns: 320px 1fr”] {
+display: flex !important;
+flex-direction: column !important;
+}
+[style*=“grid-template-columns: 320px 1fr”] > div:first-child {
+border-right: none !important;
+border-bottom: 1px solid rgba(255,255,255,0.1);
+padding: 2rem 1.5rem !important;
+}
+[style*=“grid-template-columns: 320px 1fr”] > div:last-child {
+padding: 2rem 1.5rem !important;
+}
+}
+@media (max-width: 480px) {
+.values-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">🌿 Elysian Wells</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link active">About</a>
+    <a href="apply.html" class="nav-link">Apply</a>
+    <a href="apply.html" class="nav-cta">Apply Now</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">The Story Behind Elysian Wells</div>
+    <h1 class="hero-h1">
+      Where this<br>
+      idea <em>comes from.</em><br>
+      And where it<br>
+      is going.
+    </h1>
+    <p class="hero-intro">The world has been descending into chaos for a long time. No other community checked all the boxes. So one was built from scratch — thirteen years in the making, designed to work for everyone who lives in it.</p>
+  </div>
+</section>
+
+<!-- ── FULLER QUOTE ── -->
+
+<div class="thinker-quote" style="background: #1C3A2A; padding: 100px 80px;">
+  <div class="inner">
+    <span class="thinker-quote-mark" style="color: rgba(212,168,83,0.12);">"</span>
+    <p class="thinker-quote-text light">You never change things by fighting the existing reality. To change something, build a new model that makes the existing model obsolete.</p>
+    <div class="thinker-quote-rule"></div>
+    <span class="thinker-quote-attribution">Buckminster Fuller · Architect, Systems Theorist & Futurist</span>
+  </div>
+</div>
+
+<!-- ── SECTION 1: THE ORIGIN ── -->
+
+<section class="sec sec-cream">
+  <div class="inner">
+    <span class="sec-label">Section One</span>
+    <h2>The Origin</h2>
+    <div class="sec-rule"></div>
+    <div class="origin-grid">
+
+```
+  <div class="prose">
+    <p class="lead">My name is David — builder, designer, and founding member of Elysian Wells. This is how it started.</p>
+    <p>I grew up watching the adults around me work hard and get less. Not because they were lazy or stupid — because the system was structured that way. I watched a Hutterite tornado response in my twenties and couldn’t stop thinking about it for years. Here was a community that had quietly solved the problem of collective living while the rest of the world was still arguing about it.</p>
+    <p>Twenty years in the building trades gave me something more useful than a university degree: the ability to look at a structure — physical or social — and understand immediately why it would fail. I became obsessive about earthbag construction after discovering Nader Khalili’s work. A building method pioneered for NASA Mars habitats that produced structures of extraordinary resilience at a fraction of conventional cost. Fire resistant. Earthquake resistant. Made from the earth beneath your feet. A hundred-year home built by hand.</p>
+    <p>In 2020, when the world went quiet, I had time to read. Rudolf Steiner on the integration of work and meaning. Abraham Maslow on the hierarchy of human needs as a design framework. The Freedom Cell movement. Michael Tellinger’s contributionist model. Charles Eisenstein on sacred economics. I went to Anarchapulco expecting to find my people and found mostly performance. I realised that the community I was looking for didn’t exist — and that I had every skill required to build it.</p>
+    <p>A few months later, sitting with the question I’d been circling for years, the answer finally became clear. If no one has built what I’m looking for — and I have exactly the skills and knowledge to build it — what exactly am I waiting for? I didn’t have a good answer. So I stopped waiting.</p>
+    <p>As you read through these pages, I hope you will find something that sparks the imagination in the same way it did mine. </p>
+    <p>Cheers, and glad tidings</p>
+
+    <!-- SIGNATURE -->
+    <div style="display: flex; align-items: center; gap: 1.8rem; margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid #E0D9CE;">
+      <img src="data:image/jpeg;base64,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" alt="David — Founder of Elysian Wells" style="width: 90px; height: 90px; border-radius: 4px; object-fit: cover; object-position: center top; flex-shrink: 0; border: 2px solid #C8BEA8;">
+      <div>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; font-style: italic; color: #1C3A2A; display: block; line-height: 1; margin-bottom: 0.3rem;">David</span>
+        <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #5A8A6A;">Builder · Designer · Founding Member</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="origin-sidebar">
+    <div class="origin-sidebar-image">
+      <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80" alt="Rural landscape at dawn" loading="lazy">
+    </div>
+    <p class="origin-sidebar-note">The Hutterites have maintained thriving communal settlements across North America for over a century — one of the most enduring examples of community resilience and collective purpose in the modern world.</p>
+  </div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── THINKER QUOTE 1 ── -->
+
+<div class="thinker-quote" style="background: #EDE8DF;">
+  <div class="inner">
+    <span class="thinker-quote-mark">"</span>
+    <p class="thinker-quote-text">The human being is not a finished creation. We are here to become something — and the conditions around us either support that becoming or obstruct it.</p>
+    <div class="thinker-quote-rule"></div>
+    <span class="thinker-quote-attribution">Rudolf Steiner · Philosopher & Founder of Anthroposophy</span>
+  </div>
+</div>
+
+<!-- ── PHOTO BREAK 1 ── -->
+
+<div class="photo-break">
+  <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80" alt="Cloud forest canopy" loading="lazy">
+  <div class="photo-break-overlay"></div>
+  <span class="photo-break-caption">Cloud Forest · Latin America</span>
+</div>
+
+<!-- ── SECTION 2: THE VISION ── -->
+
+<section class="sec sec-dark">
+  <div class="inner">
+    <span class="sec-label light">Section Two</span>
+    <h2>The Vision</h2>
+    <div class="sec-rule light"></div>
+
+```
+<div class="vision-intro">
+  <p class="lead">Consider two mornings. The first is the one most of us know. The second is the one being built.</p>
+  <p>The alarm before dawn. The dark commute. The fluorescent arrival. Another Monday that feels exactly like the last one. The work produces results you can see but never own, for a vision you didn’t originate, on land you’ll never walk again once the contract ends. The city hums around you at a frequency that never fully stops — traffic, screens, obligations — a relentless noise that follows you indoors and prevents you from ever thinking a single thought all the way to its end.</p>
+</div>
+
+<div class="photo-split" style="margin: 0 -80px;">
+  <div class="photo-split-image">
+    <img src="https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?w=900&q=80" alt="Tropical mountain landscape" loading="lazy">
+  </div>
+  <div class="photo-split-content" style="background: #222; padding: 80px 70px;">
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-style: italic; color: #F8F4ED; line-height: 1.5; margin-bottom: 2rem;">The second morning is the one being built at Elysian Wells.</p>
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: rgba(248,244,237,0.75); margin-bottom: 1.4rem;">You wake without an alarm in a home that was built by hand — curved walls of compressed earth that breathe naturally, keep the temperature constant, and carry none of the synthetic off-gassing that fills most modern buildings. The air inside is as clean as the air outside. The rounded corners move energy through the space the way traditional wisdom always understood they should. It is quiet in a way that surprises you — genuinely quiet, with enough natural soundproofing that the world beyond the walls exists only when you choose to step into it.</p>
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: rgba(248,244,237,0.75); margin-bottom: 0;">Outside, the cloud forest is waking up. The sky before dawn is a true darkness — no light pollution, no orange haze — just stars from horizon to horizon and, in the warm months, fireflies drifting through the garden below. The Milky Way overhead. Wildlife moving through the trees on its own unhurried schedule. Birdsong rather than traffic as the day’s first sound.</p>
+  </div>
+</div>
+
+<div class="vision-split" style="margin-top: 5rem;">
+  <div>
+    <p style="color: rgba(248,244,237,0.78); font-size: 1rem; font-weight: 300; line-height: 1.95; margin-bottom: 1.5rem;">The land gives abundantly here. Volcanic soil produces food of a depth and flavour that industrial agriculture cannot replicate — and in this climate there is no frost, no six-month pause, no waiting for a season that may not cooperate. Cacao, pineapples, dragon fruit, watermelon, almonds — crops that Canada’s winters make impossible grow here as a matter of course. You eat what you grew. You drink spring water that requires no treatment. Your body, given clean air and living food and warmth and unbroken sleep, begins quietly to remember what it is capable of.</p>
+    <p style="color: rgba(248,244,237,0.78); font-size: 1rem; font-weight: 300; line-height: 1.95; margin-bottom: 1.5rem;">Fifteen to thirty minutes away, a small and well-established expat community offers everything a modern life occasionally requires — health care, dental services, cafes, restaurants, and a social world for when the village calls for it. Weekly supply deliveries mean the community is never without what it needs. Shared tools and equipment — collectively owned rather than individually purchased — reduce costs and eliminate the redundancy that makes independent living so expensive. The financial logic of twelve people sharing infrastructure is simply better than twelve people duplicating it.</p>
+    <p style="color: rgba(248,244,237,0.78); font-size: 1rem; font-weight: 300; line-height: 1.95; margin-bottom: 0;">Healing here is not a programme. It is a consequence. The chronic anxiety of modern living dissolves not through effort but through the resolution of the tensions that created it. Security heals. Clean food heals. Privacy heals. Belonging heals.</p>
+  </div>
+  <div>
+    <p style="color: rgba(248,244,237,0.78); font-size: 1rem; font-weight: 300; line-height: 1.95; margin-bottom: 1.5rem;">Ten hours of community contribution per week is all that is asked — flexible, yours to shape, and genuinely meaningful rather than managed. The rest of the day belongs entirely to you.</p>
+    <p style="color: rgba(248,244,237,0.78); font-size: 1rem; font-weight: 300; line-height: 1.95; margin-bottom: 1.5rem;">The earthbag construction method is inherently disaster resilient — earthquake resistant, fire proof, flood resistant, built to stand a century or more. Off-grid solar power with battery storage and generator backup means the community keeps functioning when infrastructure around it fails. Spring-fed water systems with rainwater harvesting and filtration provide independence from municipal supply chains. Food production on site reduces external dependency. Backup and redundancy systems are woven throughout the design — not as a fearful response to catastrophe but as the quiet confidence of a community that has thought ahead. Whether the challenge is a natural disaster, a supply chain disruption, or broader systemic failure, Elysian Wells is designed to absorb it and keep going.</p>
+    <p style="color: rgba(248,244,237,0.78); font-size: 1rem; font-weight: 300; line-height: 1.95; margin-bottom: 0;">Ten hours of community contribution per week is all that is asked — flexible, yours to shape, and genuinely meaningful rather than managed. The rest of the day belongs entirely to you.</p>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── THINKER QUOTE 2 ── -->
+
+<div class="thinker-quote" style="background: #1C3A2A;">
+  <div class="inner">
+    <span class="thinker-quote-mark" style="color: rgba(212,168,83,0.15);">"</span>
+    <p class="thinker-quote-text light">The meaning of life is just to be alive. It is so plain and so obvious and so simple. And yet, everybody rushes around in a great panic as if it were necessary to achieve something beyond themselves.</p>
+    <div class="thinker-quote-rule"></div>
+    <span class="thinker-quote-attribution">Alan Watts · Philosopher & Author</span>
+  </div>
+</div>
+
+<!-- ── PHOTO BREAK 2 ── -->
+
+<div class="photo-break" style="height: 460px;">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=80" alt="Starry night sky over mountains" loading="lazy">
+  <div class="photo-break-overlay"></div>
+  <span class="photo-break-caption">Unpolluted Night Sky · Cloud Forest Region</span>
+</div>
+
+<!-- ── SECTION 3: THE DESIGN ── -->
+
+<section class="sec sec-mist">
+  <div class="inner">
+    <span class="sec-label">Section Three</span>
+    <h2>The Design</h2>
+    <div class="sec-rule"></div>
+
+```
+<div>
+    <div class="prose">
+      <p class="lead">Every intentional community that has ever failed had believers. What they lacked was not conviction — it was architecture.</p>
+      <p>The pattern is consistent. The vision compelling, the founders enthusiastic, the early days electric — until reality arrived. Conflict without a resolution process. Division of labour nobody had agreed to clearly. Shared values that turned out not to be shared at all once tested under pressure. Excessive idealism without a framework is not a foundation. It is a countdown.</p>
+      <p>Elysian Wells was designed from the inside out — beginning not with a vision of what the community would look like but with a framework for how it would think. After years of studying spirituality, philosophy, governance models, and the psychology of human groups, the foundation was distilled into seven values. Not commandments. Not religious doctrine. A secular lens — carefully constructed and tested — through which any problem the community encounters can be examined and resolved.</p>
+      <p>When conflict arises these values are not consulted like rules. They are applied like instruments. What is true here? What is just? What serves the freedom and prosperity of everyone involved? A community that can see clearly through a shared lens can navigate almost anything. A community without one is navigating blind.</p>
+    </div>
+
+    <!-- SEVEN VALUES -->
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-number">01</span>
+        <span class="value-name">Truth</span>
+        <p class="value-desc">Honest communication as the foundation of trust. Nothing sustainable is built on illusion.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">02</span>
+        <span class="value-name">Beauty</span>
+        <p class="value-desc">Aesthetic intentionality in the built environment, the land, and the culture of daily life.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">03</span>
+        <span class="value-name">Compassion</span>
+        <p class="value-desc">Care for one another as the baseline condition of community life, not the exception.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">04</span>
+        <span class="value-name">Wisdom</span>
+        <p class="value-desc">Drawing on the knowledge of history, tradition, and lived experience to guide decisions.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">05</span>
+        <span class="value-name">Prosperity</span>
+        <p class="value-desc">Material sufficiency and financial resilience — not as an end but as the foundation that makes everything else possible.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">06</span>
+        <span class="value-name">Justice</span>
+        <p class="value-desc">Fair distribution of both the work and the rewards. No one exploited, no one carrying more than their share.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">07</span>
+        <span class="value-name">Freedom</span>
+        <p class="value-desc">Sovereignty over one's time, land, choices, and conscience. The reason all of this exists.</p>
+      </div>
+      <div class="value-card" style="background: #1C3A2A;">
+        <span class="value-number" style="color: rgba(212,168,83,0.2);">✦</span>
+        <span class="value-name" style="color: #D4A853;">The Lens</span>
+        <p class="value-desc" style="color: rgba(248,244,237,0.55);">These seven values function as a decision-making instrument — a secular framework for navigating any challenge the community faces.</p>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top: 3rem;">
+      <p>The financial philosophy follows the same logic. Belonging should not be a monthly bill. Most communities — even well-intentioned ones — charge ongoing amounts that quietly transform the relationship between member and community into one of tenant and landlord. The cognitive load of that arrangement never fully disappears.</p>
+      <p>The model here inverts that entirely. A single founding investment confers genuine ownership, genuine belonging, and the psychological freedom that comes from knowing your place is not contingent on next month's payment. As the community's enterprises develop — shared income ventures, an internal economy, profit distribution — the annual dues trend toward zero. A system designed to care for its members without extracting from them. Prosperous without being exploitative. Free without being irresponsible.</p>
+    </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY STRIP ── -->
+
+<div class="philosophy-strip">
+  <div style="max-width: 1100px; margin: 0 auto 2.5rem; text-align: center;">
+    <span style="font-size: 0.68rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(248,244,237,0.35);">Inspired by the contributions of</span>
+  </div>
+  <div class="inner">
+    <div class="philosophy-item">
+      <span class="philosophy-name">Rudolf Steiner</span>
+      <span class="philosophy-role">Whole-Person Development</span>
+      <p class="philosophy-desc">Steiner's vision of education and work as inseparable from spiritual and creative development shaped the integration of meaningful craft and purpose into every stewardship role.</p>
+    </div>
+    <div class="philosophy-item">
+      <span class="philosophy-name">Abraham Maslow</span>
+      <span class="philosophy-role">Hierarchy of Needs</span>
+      <p class="philosophy-desc">Maslow's framework was applied as a community design checklist — ensuring that every level of human need, from physical security to self-actualisation, is addressed by the model's architecture.</p>
+    </div>
+    <div class="philosophy-item">
+      <span class="philosophy-name">Freedom Cells</span>
+      <span class="philosophy-role">Decentralised Sovereignty</span>
+      <p class="philosophy-desc">The Freedom Cell model of small, self-reliant groups operating outside dependency on centralised systems informed the community's approach to governance, economy, and resilience.</p>
+    </div>
+    <div class="philosophy-item">
+      <span class="philosophy-name">Michael Tellinger</span>
+      <span class="philosophy-role">One Small Town · Contributionism</span>
+      <p class="philosophy-desc">Tellinger's One Small Town initiative — in which small communities produce goods and services collectively, eliminating the need for money within the group — shaped the contributionist principles behind the Elysian Hour and the community's shared enterprise model.</p>
+    </div>
+    <div class="philosophy-item">
+      <span class="philosophy-name">Buckminster Fuller</span>
+      <span class="philosophy-role">Systems Thinking & Design Science</span>
+      <p class="philosophy-desc">Fuller's conviction that humanity's problems could be solved through good design rather than political conflict — and his principle of doing more with less — underpins the entire architectural and organisational philosophy of Elysian Wells.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── ECONOMY & GOVERNANCE ── -->
+
+<section style="background: #F8F4ED; padding: 110px 80px;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <span style="font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 1.2rem;">How It Actually Works</span>
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.1; color: #1C3A2A; margin-bottom: 1rem;">The Economy &amp; Governance</h2>
+    <div style="width: 48px; height: 1px; background: #A07830; margin: 1.8rem 0 3rem;"></div>
+
+```
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;">
+
+  <!-- ECONOMY -->
+  <div>
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #D4A853; display: block; margin-bottom: 1.2rem;">The Economy</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; color: #1C3A2A; margin-bottom: 1.5rem; line-height: 1.2;">A three-instrument model<br>built for sovereignty</h3>
+
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a3a3a; margin-bottom: 1.4rem;">Elysian Wells operates a parallel economy using three instruments of exchange — each serving a distinct purpose and all valued equally within the community.</p>
+
+    <!-- THREE INSTRUMENTS -->
+    <div style="display: flex; flex-direction: column; gap: 1.5px; background: #C8BEA8; margin: 2rem 0;">
+
+      <div style="background: #1C3A2A; padding: 1.8rem 2rem;">
+        <span style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #D4A853; display: block; margin-bottom: 0.4rem;">Instrument One</span>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; color: #F8F4ED; display: block; margin-bottom: 0.5rem;">Monero (XMR)</span>
+        <p style="font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: rgba(248,244,237,0.68); margin: 0;">A privacy-first, established cryptocurrency used for external transactions, savings, and wealth preservation. Monero protects the financial privacy of the community and its members from surveillance and third-party interference.</p>
+      </div>
+
+      <div style="background: #EDE8DF; padding: 1.8rem 2rem;">
+        <span style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 0.4rem;">Instrument Two</span>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; color: #1C3A2A; display: block; margin-bottom: 0.5rem;">Local Fiat Currency</span>
+        <p style="font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: #3a3a3a; margin: 0;">Used for local transactions — the expat town, regional markets, services, and any exchange that requires conventional currency. Practical, frictionless, and integrated into the weekly rhythm of community life.</p>
+      </div>
+
+      <div style="background: #1C3A2A; padding: 1.8rem 2rem;">
+        <span style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #D4A853; display: block; margin-bottom: 0.4rem;">Instrument Three</span>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; color: #F8F4ED; display: block; margin-bottom: 0.5rem;">The Elysian Hour</span>
+        <p style="font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: rgba(248,244,237,0.68); margin: 0;">The community's internal labour currency. One hour of contribution earns one Elysian Hour, valued at 10% of the 30-day trailing Monero average — creating a standardised, stable unit of exchange that ties human labour directly to an established benchmark. Members may also barter freely, but the Elysian Hour provides the clarity and stability that a thriving internal economy requires.</p>
+      </div>
+
+    </div>
+
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a3a3a; margin-bottom: 1.4rem;">Individual income is entirely your own — Elysian Wells does not share or pool personal earnings. Community enterprises, however, generate collective income that is distributed among members in good standing. Participation in community ventures beyond the ten-hour weekly contribution is always voluntary. No one is compelled to contribute more than agreed. No one is excluded from the rewards of what the community builds together.</p>
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a3a3a; margin-bottom: 0;">The three-instrument model is the economic heart of Elysian Wells — not because it is complex, but because it is designed for resilience. Three instruments, each serving a different purpose, collectively ensuring that the community can transact, save, reward labour, and trade without dependence on any single system.</p>
+  </div>
+
+  <!-- GOVERNANCE -->
+  <div>
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #D4A853; display: block; margin-bottom: 1.2rem;">The Governance</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; color: #1C3A2A; margin-bottom: 1.5rem; line-height: 1.2;">Minimal bureaucracy.<br>Maximum accountability.</h3>
+
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a3a3a; margin-bottom: 1.4rem;">Most communities collapse not from external pressure but from internal governance failures — decisions made without clarity, authority exercised without accountability, or conflict allowed to fester without a legitimate resolution process. Elysian Wells was designed to prevent all three.</p>
+
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a3a3a; margin-bottom: 2rem;">The governing structure is intentionally lean: a founding circle that meets monthly, a clear decision-making process, and a system of checks that ensures no single person — including the founding director — holds unchecked power.</p>
+
+    <!-- GOVERNANCE PILLARS -->
+    <div style="display: flex; flex-direction: column; gap: 1.5px; background: #C8BEA8;">
+
+      <div style="background: #F2EEE6; padding: 1.8rem 2rem;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: #1C3A2A; display: block; margin-bottom: 0.4rem;">The Monthly Assembly</span>
+        <p style="font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: #555; margin: 0;">The full founding circle meets once per month — aligned with the lunar cycle — to review community matters, address concerns, celebrate progress, and make collective decisions. Every member has an equal voice. Proposals are discussed openly before any decision is reached.</p>
+      </div>
+
+      <div style="background: #EDE8DF; padding: 1.8rem 2rem;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: #1C3A2A; display: block; margin-bottom: 0.4rem;">The Universal Veto</span>
+        <p style="font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: #555; margin: 0;">Every founding member holds veto power over any community decision. A veto must be submitted in writing with a reasoned explanation — protecting the right without enabling obstruction for its own sake. This ensures that no decision affecting the whole community can be imposed against the genuine objection of any member.</p>
+      </div>
+
+      <div style="background: #F2EEE6; padding: 1.8rem 2rem;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: #1C3A2A; display: block; margin-bottom: 0.4rem;">The Director's Role</span>
+        <p style="font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: #555; margin: 0;">The founding director does not vote on community matters — their role is to facilitate, not to decide. However, the director retains a 10-day written veto on any decision passed by the circle, providing a considered check against decisions that may conflict with the community's founding values or long-term interests. A veto must always be explained in writing and is subject to review by the full circle.</p>
+      </div>
+
+      <div style="background: #EDE8DF; padding: 1.8rem 2rem;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: #1C3A2A; display: block; margin-bottom: 0.4rem;">The Seven Values as Arbiter</span>
+        <p style="font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: #555; margin: 0;">When disputes arise that the circle cannot resolve through discussion, the seven founding values — truth, beauty, compassion, wisdom, justice, freedom, and prosperity — serve as the ultimate arbiter. Every decision, conflict, and proposal can be examined through this lens. A community that shares a clear values framework rarely needs more governance than that.</p>
+      </div>
+
+    </div>
+
+    <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a3a3a; margin-top: 2rem; margin-bottom: 0;">The full governance framework — including the three-stage conflict resolution process, stewardship accountability structures, and exit protocols — is documented in the Elysian Wells Covenant, provided to all accepted founding members prior to any commitment being made.</p>
+  </div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── PHOTO BREAK 3 ── -->
+
+<div class="photo-break" style="height: 500px;">
+  <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1800&q=80" alt="Aerial view of tropical forest" loading="lazy">
+  <div class="photo-break-overlay"></div>
+  <span class="photo-break-caption">Biodiversity · Latin American Cloud Forest</span>
+</div>
+<!-- ── THINKER QUOTE 3: EISENSTEIN ── -->
+<div class="thinker-quote" style="background: #F2EEE6;">
+  <div class="inner">
+    <span class="thinker-quote-mark">"</span>
+    <p class="thinker-quote-text">The great Western disease is 'I'll be happy when' — when I get the money, when I get the car, when I get the job. The sickness of deferral is a substitution of the future for the present.</p>
+    <div class="thinker-quote-rule"></div>
+    <span class="thinker-quote-attribution">Charles Eisenstein · Author, Sacred Economics</span>
+  </div>
+</div>
+
+<!-- ── SECTION 4: THE POSSIBILITY ── -->
+
+<section style="background: #F8F4ED; padding: 100px 80px 60px;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <span style="font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 1.2rem;">Section Four</span>
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.1; color: #1C3A2A; margin-bottom: 1rem;">What Becomes Possible</h2>
+    <div style="width: 48px; height: 1px; background: #A07830; margin: 1.8rem 0 2.5rem;"></div>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; font-style: italic; line-height: 1.6; color: #3a3a3a; max-width: 760px;">Most of what people most want to do with their lives is either impossible in a city or costs so much in time and energy that it never actually happens. Here the conditions that prevent those things have been removed.</p>
+  </div>
+</section>
+
+<!-- PANEL 1 — GROWER -->
+
+<div style="background: #1C3A2A; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(212,168,83,0.05); line-height: 1; pointer-events: none; user-select: none;">01</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(212,168,83,0.6); display: block; margin-bottom: 1.5rem;">Grow</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #F8F4ED; line-height: 1.1; margin-bottom: 2rem;">Things that don't grow<br><em style="font-style: italic; color: #D4A853;">anywhere else.</em></h3>
+    <div style="width: 40px; height: 1px; background: #D4A853; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin-bottom: 1.3rem;">Year-round growing without frost, in volcanic soil of extraordinary fertility. Cacao, dragon fruit, pineapples, coffee, watermelon, almonds, and dozens of medicinal herbs that simply cannot be cultivated in northern climates.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin: 0;">Seed saving, food forest succession, companion planting, soil biology, and the emerging practice of electroculture — using atmospheric electricity and copper coils to accelerate plant growth. The garden here is not a hobby. It is a living laboratory with decades of productive life ahead of it.</p>
+  </div>
+</div>
+
+<!-- PANEL 2 — BUILDER -->
+
+<div style="background: #F2EEE6; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(28,58,42,0.04); line-height: 1; pointer-events: none; user-select: none;">02</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 1.5rem;">Build</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #1C3A2A; line-height: 1.1; margin-bottom: 2rem;">Things with your hands<br><em style="font-style: italic; color: #A07830;">that last.</em></h3>
+    <div style="width: 40px; height: 1px; background: #A07830; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin-bottom: 1.3rem;">A builder in a city builds for someone else. Here the craft comes home. Furniture from local hardwoods. Garden structures, shelving, and custom home improvements designed exactly as you want them.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin: 0;">And bamboo — one of the most remarkable building materials on earth, abundant in the region, workable with basic tools, and capable of producing structures of extraordinary beauty and strength. The community workshop is shared. The tools are collectively owned. Everything you make is yours to live with.</p>
+  </div>
+</div>
+
+<!-- PANEL 3 — ARTIST -->
+
+<div style="background: #2A2A2A; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(212,168,83,0.04); line-height: 1; pointer-events: none; user-select: none;">03</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(212,168,83,0.6); display: block; margin-bottom: 1.5rem;">Create</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #F8F4ED; line-height: 1.1; margin-bottom: 2rem;">Art in a place<br><em style="font-style: italic; color: #D4A853;">worth responding to.</em></h3>
+    <div style="width: 40px; height: 1px; background: #D4A853; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin-bottom: 1.3rem;">The city produces artists who are too tired to make art. Here the conditions are reversed — time, beauty, silence, and a landscape that demands to be responded to creatively. Painting, sculpture, ceramics, weaving, photography, printmaking.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin: 0;">The community becomes both patron and audience. The region beyond it — its light, its colours, its ancient stones and cloud forest canopy — is an inexhaustible subject.</p>
+  </div>
+</div>
+
+<!-- PANEL 4 — WRITER -->
+
+<div style="background: #EDE8DF; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(28,58,42,0.04); line-height: 1; pointer-events: none; user-select: none;">04</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 1.5rem;">Write</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #1C3A2A; line-height: 1.1; margin-bottom: 2rem;">The books you always<br><em style="font-style: italic; color: #A07830;">meant to write.</em></h3>
+    <div style="width: 40px; height: 1px; background: #A07830; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin-bottom: 1.3rem;">A writer needs three things: time, silence, and something worth writing about. The city is reliably short on all three. Here there are unhurried mornings, genuine quiet, and the extraordinary material of a life being lived deliberately.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin: 0;">The earthbag home provides enough natural soundproofing to record podcasts, narration, and music. The archive holds ten terabytes of reference. The community itself is both subject and audience.</p>
+  </div>
+</div>
+
+<!-- PANEL 5 — COOK -->
+
+<div style="background: #1C3A2A; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(212,168,83,0.05); line-height: 1; pointer-events: none; user-select: none;">05</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(212,168,83,0.6); display: block; margin-bottom: 1.5rem;">Cook</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #F8F4ED; line-height: 1.1; margin-bottom: 2rem;">With ingredients the west<br><em style="font-style: italic; color: #D4A853;">has never tasted.</em></h3>
+    <div style="width: 40px; height: 1px; background: #D4A853; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin-bottom: 1.3rem;">Cooking for twelve people who grew what you are preparing — with ingredients unavailable in any western supermarket — is one of the most satisfying things a person who loves food can do.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin: 0;">Guanábana, naranjilla, tree tomato, hearts of palm, fresh cacao pulp, exotic chillies, tropical tubers. Fermentation, preservation, ceremonial feasting, and the daily pleasure of a kitchen stocked with produce harvested that morning fifty metres from the door.</p>
+  </div>
+</div>
+
+<!-- PANEL 6 — SPIRITUAL -->
+
+<div style="background: #F2EEE6; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(28,58,42,0.04); line-height: 1; pointer-events: none; user-select: none;">06</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 1.5rem;">Seek</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #1C3A2A; line-height: 1.1; margin-bottom: 2rem;">A spiritual life that is<br><em style="font-style: italic; color: #A07830;">actually lived.</em></h3>
+    <div style="width: 40px; height: 1px; background: #A07830; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin-bottom: 1.3rem;">The region is home to indigenous communities with unbroken ceremonial traditions stretching back centuries. Plant medicine and entheogenic practices — used for healing, vision, and the deepening of inner life — are woven into the local culture and accessible to those who approach them with respect.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin: 0;">Within the community, monthly ceremonies, seasonal gatherings, and rites of passage provide a living ceremonial calendar. This is not spiritual tourism. It is the rare opportunity to develop a genuine practice in a place where the sacred has never been separated from daily life.</p>
+  </div>
+</div>
+
+<!-- PANEL 7 — ENTREPRENEUR -->
+
+<div style="background: #2A2A2A; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(212,168,83,0.04); line-height: 1; pointer-events: none; user-select: none;">07</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(212,168,83,0.6); display: block; margin-bottom: 1.5rem;">Build</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #F8F4ED; line-height: 1.1; margin-bottom: 2rem;">A business that runs<br><em style="font-style: italic; color: #D4A853;">from anywhere.</em></h3>
+    <div style="width: 40px; height: 1px; background: #D4A853; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin-bottom: 1.3rem;">Sovereignty and connectivity are not opposites. Satellite internet, a community VPN, a private server, and a cost of living a fraction of any western city make this one of the most practical places on earth to run a digital business, develop software, or build an online enterprise.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin: 0;">The community produces things the world wants — cacao, medicinal plants, honey, artisan goods, handmade furniture, creative content — and the right person builds the economic layer that turns production into shared prosperity.</p>
+  </div>
+</div>
+
+<!-- PANEL 8 — EXPLORER -->
+
+<div style="background: #EDE8DF; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(28,58,42,0.04); line-height: 1; pointer-events: none; user-select: none;">08</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: block; margin-bottom: 1.5rem;">Explore</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #1C3A2A; line-height: 1.1; margin-bottom: 2rem;">One of the most extraordinary<br><em style="font-style: italic; color: #A07830;">places on earth.</em></h3>
+    <div style="width: 40px; height: 1px; background: #A07830; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin-bottom: 1.3rem;">Ancient megalithic sites whose origins remain genuinely contested. Cloud forest reserves of staggering biodiversity — thousands of orchid species, hundreds of hummingbird varieties, wildlife found nowhere else on the planet.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: #3a3a3a; margin: 0;">Indigenous markets, thermal pools, active volcanic landscapes, Amazonian headwaters, and one of the world's most unique island ecosystems accessible by short flight. A base of operations for a life of genuine discovery.</p>
+  </div>
+</div>
+
+<!-- PANEL 9 — REST -->
+
+<div style="background: #1C3A2A; padding: 70px 80px; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -10px; right: 40px; font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300; color: rgba(212,168,83,0.05); line-height: 1; pointer-events: none; user-select: none;">09</div>
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+    <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(212,168,83,0.6); display: block; margin-bottom: 1.5rem;">Rest</span>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: #F8F4ED; line-height: 1.1; margin-bottom: 2rem;">For as long<br><em style="font-style: italic; color: #D4A853;">as it takes.</em></h3>
+    <div style="width: 40px; height: 1px; background: #D4A853; opacity: 0.4; margin-bottom: 2rem;"></div>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin-bottom: 1.3rem;">If what you need most is a hammock, a warm afternoon, the sound of the forest, and absolutely nothing urgent — that is here too, and it is not laziness.</p>
+    <p style="font-size: 1rem; font-weight: 300; line-height: 1.95; color: rgba(248,244,237,0.78); margin: 0;">It is the recovery of something modern life has been quietly extracting from you for years. Rest is not the absence of purpose. It is often the prerequisite for it. Elysian Wells was designed to give you enough of it that you eventually remember what you actually want to do.</p>
+  </div>
+</div>
+
+<!-- LEGACY STATEMENT -->
+
+<section class="sec sec-cream">
+  <div class="inner">
+    <div style="background: #F2EEE6; padding: 60px 70px; border: 1.5px solid #C8BEA8;">
+      <div style="max-width: 780px; margin: 0 auto; text-align: center;">
+        <span style="font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #5A8A6A; display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+          <span style="display: block; width: 30px; height: 1px; background: #5A8A6A;"></span>
+          A Legacy Worth Leaving
+          <span style="display: block; width: 30px; height: 1px; background: #5A8A6A;"></span>
+        </span>
+        <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 300; line-height: 1.45; color: #1C3A2A; margin-bottom: 1.5rem;">What is built here will outlast the people who build it. The food forest planted in Year One will be producing for decades. The homes will stand for a century. The community model, documented and open-sourced, will be available to anyone in the world who wants to replicate it.</p>
+        <p style="font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #555; max-width: 640px; margin: 0 auto;">The founding members of Elysian Wells are not just choosing a better life for themselves. They are becoming the proof of concept for a different way of being human — and leaving behind a blueprint that others can follow. Most people spend their lives building things that belong to someone else. Here what you build is genuinely yours, genuinely lasting, and genuinely worth the effort it took to create it.</p>
+      </div>
+    </div>
+
+```
+<!-- MYTHOPOETIC BLOCK -->
+<div class="mythopoetic-block">
+  <div class="mythopoetic-inner">
+    <span class="sec-label">The Mythopoetic Community</span>
+    <h3>We are here to write our own<br><em>gospels and live our own myths.</em></h3>
+    <div class="sec-rule"></div>
+    <p>The word mythopoetic comes from two ancient roots: <em>mythos</em> — story — and <em>poiesis</em> — making. A mythopoetic community is one that understands itself as a living story being written in real time, by the people inside it, through the choices they make and the life they build together. It is not a metaphor. It is a design principle.</p>
+    <p>Most people live inside stories they did not choose — the narrative of productivity and consumption, the myth of the career ladder, the story of the mortgage and the retirement fund. These stories are inherited, rarely examined, and almost never questioned until something forces the question. A mythopoetic community does something different: it chooses its story deliberately, names its values explicitly, gives each of its members a role worth holding, and builds a culture in which meaning is not something that happens to you but something you actively participate in making.</p>
+    <p>At Elysian Wells this practice is built into the calendar — monthly lunar assemblies, seasonal ceremonies, rites of passage, the naming of roles in a language that carries weight. It is woven into the physical environment — homes built with care and character, communal spaces designed for beauty as well as function, a landscape tended with intention. And it is present in the daily texture of life — the meal shared, the skill taught, the story told, the work done in the company of people who understand why it matters.</p>
+    <p>Spirituality here is not doctrine. It is the lived experience of a community that takes meaning seriously. Each member arrives with their own inner life, their own relationship to the sacred, their own understanding of what it means to be human. The community does not impose a single answer to those questions. It simply creates the conditions in which those questions can be lived rather than deferred.</p>
+    <p class="closing-line">This is a place to become who you were always capable of being. The myth is already underway. The only question is whether you are in it.</p>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── THINKER QUOTE 4 ── -->
+
+<div class="thinker-quote" style="background: #EDE8DF;">
+  <div class="inner">
+    <span class="thinker-quote-mark">"</span>
+    <p class="thinker-quote-text">The privilege of a lifetime is to become who you truly are.</p>
+    <div class="thinker-quote-rule"></div>
+    <span class="thinker-quote-attribution">Carl Jung · Psychologist & Founder of Analytical Psychology</span>
+  </div>
+</div>
+
+<!-- ── PHOTO BEFORE INVITATION ── -->
+
+<div class="photo-break" style="height: 520px;">
+  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1800&q=80" alt="People gathered around a fire at dusk" loading="lazy">
+  <div class="photo-break-overlay"></div>
+  <span class="photo-break-caption">Community · Connection · Belonging</span>
+</div>
+
+<!-- ── SECTION 5: THE INVITATION ── -->
+
+<section class="sec sec-ink">
+  <div class="inner">
+    <span class="sec-label light">Section Five</span>
+    <h2>The Invitation</h2>
+    <div class="sec-rule light"></div>
+
+```
+<div class="invitation-wrap">
+  <p class="lead">If you have read this far, something in you already knows.</p>
+  <p>Not the practical details — those live elsewhere on this site. Something deeper. A recognition that the life being described here is not a fantasy or an ideology but a genuine and achievable alternative to the one most of us are living by default.</p>
+  <p>Elysian Wells is not for everyone. It was never meant to be. It is for the person who has felt the call toward a life worth living and has been unable to find, in the options available to them, anything honest enough or real enough or affordable enough to actually answer it. For the person who wants to belong somewhere — genuinely belong — and understands that belonging requires contribution and the willingness to show up for others the way you want them to show up for you.</p>
+  <p>This is a sanctuary. A place of healing and becoming — not because it promises transformation but because it removes the conditions that prevent it. When the fundamental needs of a human life are genuinely met, the best version of a person tends to emerge on its own.</p>
+  <p>The model here is built on a simple truth: by being of service to others we inevitably end up serving ourselves. The community works because everyone in it contributes to something larger than their own comfort — and receives, in return, far more than any individual could build alone. Security. Beauty. Freedom. Purpose. A life that accumulates meaning rather than simply accumulating time.</p>
+  <p>The world outside is becoming more uncertain. The value of a resilient, self-sufficient, deeply rooted community will only grow as that uncertainty deepens. Elysian Wells was designed with that reality in mind — not a bunker, but a village. The oldest and most proven human response to an unpredictable world.</p>
+  <p>This is affordable. This is honest. This is real. And it is waiting for the people who are ready to build it.</p>
+  <a href="apply.html" class="btn-gold">Apply for a Founding Seat *</a>
+  <p style="font-size: 0.75rem; font-weight: 300; color: rgba(248,244,237,0.35); margin-top: 1.2rem; letter-spacing: 0.05em;">* Ten spots currently available</p>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <span class="footer-logo">🌿 Elysian Wells</span>
+  <span style="font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic; font-weight: 300; color: rgba(212,168,83,0.7); letter-spacing: 0.12em; display: block; margin-top: 0; margin-bottom: 2rem;">The village that works for everyone</span>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="apply.html">Apply</a>
+    <a href="https://elysianwells.ca">elysianwells.ca</a>
+  </div>
+  <p>
+    <a href="mailto:elysianwells@proton.me">elysianwells@proton.me</a><br><br>
+    Elysian Wells is a privately organized intentional community project. Specific location details are disclosed exclusively to accepted founding members. This page is for informational purposes only and does not constitute a legal or financial commitment.<br><br>
+    © 2026 Elysian Wells. All rights reserved.
+  </p>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+</script>
+
+</body>
+</html>
