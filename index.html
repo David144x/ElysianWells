@@ -1,61 +1,1180 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming 2025</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elysian Wells — The Village That Works For Everyone</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:    #1C3A2A;
+    --moss:      #2E6B4F;
+    --sage:      #5A8A6A;
+    --gold:      #A07830;
+    --pale-gold: #D4A853;
+    --cream:     #F8F4ED;
+    --warm:      #EDE8DF;
+    --stone:     #C8BEA8;
+    --charcoal:  #2A2A2A;
+    --mist:      #F2EEE6;
+    --ink:       #1A1A1A;
+  }
 
-  <!-- Google Fonts (optional) -->
-  <link href="https://fonts.googleapis.com/css2?family=Arial&display=swap" rel="stylesheet">
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-  <style>
-    /* --- BODY --- */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif; /* CHANGE FONT HERE */
-      background-color: #819D96;       /* CHANGE BACKGROUND COLOR HERE */
-      color: #000000;                  /* CHANGE TEXT COLOR HERE */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
+/* Kill browser default link styling globally */
+a { color: inherit; text-decoration: none; }
+a:link, a:visited { color: inherit; }
 
-    /* --- TITLE --- */
-    h1 {
-      font-size: 3em;                  /* CHANGE SIZE */
-      margin-bottom: 20px;
-    }
+body {
+font-family: ‘Jost’, sans-serif;
+background: var(–ink);
+color: var(–cream);
+overflow-x: hidden;
+}
 
-    /* --- SUBTITLE --- */
-    h2 {
-      font-size: 2.5em;                /* CHANGE SIZE */
-      margin-bottom: 30px;
-      color: #F3A925;                  /* CHANGE SUBTITLE COLOR */
-    }
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+padding: 1.2rem 2.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: all 0.4s ease;
+}
+nav.scrolled {
+background: rgba(26,26,26,0.97);
+backdrop-filter: blur(12px);
+box-shadow: 0 2px 30px rgba(0,0,0,0.4);
+}
+.nav-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.2rem;
+font-weight: 400;
+color: #F8F4ED;
+letter-spacing: 0.08em;
+text-decoration: none;
+text-decoration: none !important;
+}
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-link {
+font-size: 0.72rem;
+font-weight: 400;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.5);
+text-decoration: none;
+transition: color 0.3s;
+}
+.nav-link:hover { color: #D4A853; }
+.nav-link.active { color: #D4A853; }
+.nav-cta {
+font-size: 0.72rem;
+font-weight: 500;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: #D4A853;
+text-decoration: none;
+border: 1px solid #D4A853;
+padding: 8px 20px;
+transition: all 0.3s;
+}
+.nav-cta:hover { background: #D4A853; color: #1C3A2A; }
 
-    /* --- IMAGE --- */
-    img {
-      max-width: 444px;                /* CHANGE IMAGE SIZE */
-      border-radius: 10px;             /* CHANGE IMAGE ROUNDED CORNERS */
-    }
-  </style>
+/* ── HERO ── */
+.hero {
+min-height: 100vh;
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 0 80px 100px;
+overflow: hidden;
+background: #1C3A2A; /* fallback when image fails to load */
+}
+.hero-bg {
+position: absolute; inset: 0;
+background-image: url(‘https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80’);
+background-size: cover;
+background-position: center 40%;
+transform: scale(1.05);
+animation: heroZoom 14s ease-out forwards;
+}
+@keyframes heroZoom {
+from { transform: scale(1.05); }
+to   { transform: scale(1.0); }
+}
+.hero-overlay {
+position: absolute; inset: 0;
+background: linear-gradient(
+to top,
+rgba(18,30,22,0.97) 0%,
+rgba(18,30,22,0.75) 40%,
+rgba(18,30,22,0.35) 70%,
+rgba(18,30,22,0.15) 100%
+);
+}
+.hero-content {
+position: relative;
+z-index: 2;
+max-width: 900px;
+}
+.hero-eyebrow {
+font-size: 0.7rem;
+font-weight: 400;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(–pale-gold);
+display: flex;
+align-items: center;
+gap: 1rem;
+margin-bottom: 2rem;
+opacity: 0;
+animation: fadeUp 1s ease 0.3s forwards;
+}
+.hero-eyebrow::before {
+content: ‘’;
+display: block;
+width: 36px; height: 1px;
+background: var(–pale-gold);
+}
+.hero-h1 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(3rem, 7vw, 6.5rem);
+font-weight: 300;
+line-height: 1.0;
+color: var(–cream);
+margin-bottom: 2rem;
+opacity: 0;
+animation: fadeUp 1.1s ease 0.5s forwards;
+}
+.hero-h1 em { font-style: italic; color: var(–pale-gold); }
+.hero-tagline {
+font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+font-weight: 300;
+line-height: 1.85;
+color: rgba(248,244,237,0.65);
+max-width: 560px;
+margin-bottom: 3rem;
+opacity: 0;
+animation: fadeUp 1.1s ease 0.7s forwards;
+}
+.hero-actions {
+display: flex;
+gap: 1.2rem;
+align-items: center;
+flex-wrap: wrap;
+opacity: 0;
+animation: fadeUp 1.1s ease 0.9s forwards;
+}
+.btn-primary {
+display: inline-block;
+padding: 16px 48px;
+background: var(–pale-gold);
+color: var(–forest);
+font-size: 0.78rem;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+text-decoration: none;
+transition: all 0.3s;
+}
+.btn-primary:hover { background: var(–cream); transform: translateY(-2px); }
+.btn-ghost {
+display: inline-block;
+padding: 16px 36px;
+border: 1px solid rgba(248,244,237,0.25);
+color: rgba(248,244,237,0.65);
+font-size: 0.78rem;
+font-weight: 400;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+text-decoration: none;
+transition: all 0.3s;
+}
+.btn-ghost:hover { border-color: var(–pale-gold); color: var(–pale-gold); }
+
+/* Scroll indicator */
+.hero-scroll {
+position: absolute;
+bottom: 2.5rem;
+right: 80px;
+z-index: 2;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.6rem;
+opacity: 0;
+animation: fadeIn 1s ease 1.5s forwards;
+}
+.hero-scroll span {
+font-size: 0.65rem;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.3);
+writing-mode: vertical-rl;
+}
+.hero-scroll::after {
+content: ‘’;
+width: 1px; height: 50px;
+background: linear-gradient(to bottom, rgba(212,168,83,0.5), transparent);
+animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+0%, 100% { opacity: 0.5; transform: scaleY(1); }
+50% { opacity: 1; transform: scaleY(0.7); }
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(24px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+from { opacity: 0; }
+to   { opacity: 1; }
+}
+
+/* ── SECTION UTILITIES ── */
+.sec { padding: 110px 80px; }
+.sec .inner { max-width: 1100px; margin: 0 auto; }
+.sec-dark { background: #2A2A2A; }
+.sec-ink  { background: #1A1A1A; }
+.sec-forest { background: #1C3A2A; }
+.sec-cream { background: #F8F4ED; }
+.sec-warm { background: #EDE8DF; }
+.sec-mist { background: #F2EEE6; }
+
+.label {
+font-size: 0.7rem;
+font-weight: 500;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(–pale-gold);
+display: block;
+margin-bottom: 1.2rem;
+}
+.label.on-light { color: var(–sage); }
+
+h2 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(2rem, 4vw, 3.4rem);
+font-weight: 300;
+line-height: 1.1;
+margin-bottom: 1.5rem;
+}
+.on-dark h2, .sec-ink h2, .sec-dark h2, .sec-forest h2 { color: #F8F4ED; }
+.sec-cream h2, .sec-warm h2, .sec-mist h2 { color: #1C3A2A; }
+
+.rule {
+width: 48px; height: 1px;
+background: var(–pale-gold);
+margin: 1.8rem 0 2.5rem;
+}
+.rule.dark { background: var(–gold); }
+
+p.body {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.9;
+max-width: 680px;
+margin-bottom: 1.4rem;
+}
+.sec-ink p.body, .sec-dark p.body, .sec-forest p.body { color: rgba(248,244,237,0.75); }
+.sec-cream p.body, .sec-warm p.body, .sec-mist p.body { color: #3d3d3d; }
+
+/* ── THE PROBLEM ── */
+.problem-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6rem;
+align-items: center;
+margin-top: 3rem;
+}
+.problem-left h2 { color: #F8F4ED; }
+.problem-left p.body { color: rgba(248,244,237,0.72); }
+.problem-right {
+border-left: 1px solid rgba(255,255,255,0.1);
+padding-left: 5rem;
+}
+.problem-item {
+padding: 1.8rem 0;
+border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.problem-item:first-child { padding-top: 0; }
+.problem-item:last-child { border-bottom: none; }
+.problem-item h4 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.15rem;
+font-weight: 500;
+color: #D4A853;
+margin-bottom: 0.4rem;
+}
+.problem-item p {
+font-size: 0.88rem;
+line-height: 1.75;
+color: rgba(248,244,237,0.6);
+margin: 0;
+}
+
+/* ── THE VISION ── */
+.vision-pull {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(1.5rem, 3vw, 2.4rem);
+font-weight: 300;
+font-style: italic;
+line-height: 1.4;
+color: var(–cream);
+max-width: 820px;
+margin: 3rem 0;
+border-left: 2px solid var(–pale-gold);
+padding-left: 2.5rem;
+}
+.vision-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2px;
+background: #111;
+margin-top: 3.5rem;
+}
+.vision-card {
+background: #242424;
+padding: 2.5rem 2rem;
+transition: background 0.3s;
+}
+.vision-card:hover { background: #2c2c2c; }
+.vision-card-icon { font-size: 1.8rem; display: block; margin-bottom: 1rem; }
+.vision-card h4 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.2rem;
+font-weight: 500;
+color: #D4A853;
+margin-bottom: 0.6rem;
+}
+.vision-card p {
+font-size: 0.87rem;
+line-height: 1.75;
+color: rgba(248,244,237,0.65);
+margin: 0;
+}
+
+/* ── LOCATION ── */
+.location-wrap {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0;
+min-height: 600px;
+}
+.location-image {
+position: relative;
+overflow: hidden;
+}
+.location-image img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+filter: brightness(0.75) saturate(1.1);
+transition: transform 0.6s ease;
+}
+.location-image:hover img { transform: scale(1.03); }
+.location-image-caption {
+position: absolute;
+bottom: 1.5rem; left: 1.5rem;
+font-size: 0.68rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.4);
+}
+.location-content {
+background: #1C3A2A;
+padding: 80px 70px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.location-content h2 { color: #F8F4ED; }
+.location-content p.body { color: rgba(248,244,237,0.72); }
+.location-highlights {
+display: flex;
+flex-direction: column;
+gap: 0;
+margin-top: 2rem;
+}
+.location-highlight {
+display: flex;
+gap: 1.2rem;
+align-items: flex-start;
+padding: 1rem 0;
+border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.location-highlight:last-child { border-bottom: none; }
+.location-highlight-icon { font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+.location-highlight-text {
+font-size: 0.87rem;
+line-height: 1.7;
+color: rgba(248,244,237,0.6);
+}
+.location-highlight-text strong {
+display: block;
+font-weight: 500;
+color: var(–cream);
+font-size: 0.9rem;
+margin-bottom: 0.1rem;
+}
+
+/* ── THE HOME ── */
+.earthbag-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0;
+min-height: 580px;
+}
+.earthbag-content {
+background: #F2EEE6;
+padding: 80px 70px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.earthbag-content h2 { color: #1C3A2A; }
+.earthbag-content p.body { color: #3d3d3d; }
+.earthbag-specs {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1px;
+background: var(–stone);
+margin-top: 2.5rem;
+}
+.spec {
+background: var(–cream);
+padding: 1.4rem 1.5rem;
+}
+.spec-value {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.6rem;
+font-weight: 300;
+color: var(–forest);
+display: block;
+line-height: 1;
+margin-bottom: 0.2rem;
+}
+.spec-label {
+font-size: 0.7rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–sage);
+}
+.earthbag-image {
+position: relative;
+overflow: hidden;
+}
+.earthbag-image img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+filter: brightness(0.8) saturate(1.1);
+transition: transform 0.6s ease;
+}
+.earthbag-image:hover img { transform: scale(1.03); }
+
+/* ── NUMBERS STRIP ── */
+.numbers-strip {
+background: #1C3A2A;
+padding: 70px 80px;
+border-top: 1px solid rgba(255,255,255,0.06);
+border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.numbers-strip .inner {
+max-width: 1100px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(6, 1fr);
+gap: 0;
+}
+.num-item {
+text-align: center;
+padding: 1rem 1.5rem;
+border-right: 1px solid rgba(255,255,255,0.08);
+}
+.num-item:last-child { border-right: none; }
+.num-value {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 2.8rem;
+font-weight: 300;
+color: var(–pale-gold);
+display: block;
+line-height: 1;
+margin-bottom: 0.4rem;
+}
+.num-unit {
+font-size: 0.75rem;
+font-weight: 400;
+color: rgba(248,244,237,0.35);
+letter-spacing: 0.1em;
+display: block;
+margin-bottom: 0.2rem;
+}
+.num-label {
+font-size: 0.68rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.45);
+}
+
+/* ── HEALTH ── */
+.health-split {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6rem;
+align-items: start;
+}
+
+/* ── PIONEER SECTION ── */
+.pioneer {
+background: #1A1A1A;
+padding: 130px 80px;
+position: relative;
+overflow: hidden;
+text-align: center;
+}
+.pioneer::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(28,58,42,0.6) 0%, transparent 70%);
+}
+.pioneer .inner {
+position: relative;
+max-width: 800px;
+margin: 0 auto;
+}
+.pioneer-quote {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+font-weight: 300;
+line-height: 1.3;
+color: #F8F4ED;
+margin: 2rem 0 1.5rem;
+}
+.pioneer-quote em { font-style: italic; color: #D4A853; }
+.pioneer-body {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.9;
+color: rgba(248,244,237,0.65);
+max-width: 640px;
+margin: 0 auto 2.5rem;
+text-align: center;
+}
+.pioneer-rule {
+width: 60px; height: 1px;
+background: #D4A853;
+margin: 2rem auto;
+opacity: 0.5;
+}
+.pioneer-closing {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.1rem;
+font-style: italic;
+color: rgba(248,244,237,0.35);
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+background: #1C3A2A;
+padding: 120px 80px;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+.final-cta::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(46,107,79,0.5) 0%, transparent 70%);
+}
+.final-cta .inner { position: relative; max-width: 680px; margin: 0 auto; }
+.final-cta h2 { color: var(–cream); margin-bottom: 1.2rem; }
+.final-cta p {
+color: rgba(248,244,237,0.6);
+max-width: 500px;
+margin: 0 auto 2.5rem;
+font-size: 0.95rem;
+font-weight: 300;
+line-height: 1.8;
+}
+.seats-badge {
+display: inline-flex;
+align-items: center;
+gap: 0.8rem;
+background: rgba(212,168,83,0.12);
+border: 1px solid rgba(212,168,83,0.3);
+padding: 0.7rem 1.4rem;
+margin-bottom: 2rem;
+}
+.seats-dot {
+width: 7px; height: 7px;
+border-radius: 50%;
+background: var(–pale-gold);
+animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.4; transform: scale(0.7); }
+}
+.seats-badge span {
+font-size: 0.72rem;
+font-weight: 400;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–pale-gold);
+}
+.cta-closing {
+margin-top: 3rem;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1rem;
+font-style: italic;
+color: rgba(248,244,237,0.25);
+}
+
+/* ── FOOTER ── */
+footer {
+background: #2A2A2A;
+padding: 50px 80px;
+text-align: center;
+}
+.footer-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.6rem;
+color: #F8F4ED;
+opacity: 1;
+margin-bottom: 0.5rem;
+letter-spacing: 0.1em;
+display: block;
+}
+.footer-nav {
+display: flex;
+justify-content: center;
+gap: 2rem;
+margin-bottom: 2rem;
+flex-wrap: wrap;
+}
+.footer-nav a {
+font-size: 0.72rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.3);
+text-decoration: none;
+transition: color 0.3s;
+}
+.footer-nav a:hover { color: #D4A853; }
+footer p {
+font-size: 0.78rem;
+color: rgba(255,255,255,0.22);
+line-height: 1.9;
+max-width: 600px;
+margin: 0 auto;
+}
+footer a { color: #D4A853; text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+.problem-grid { grid-template-columns: 1fr; gap: 3rem; }
+.problem-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 3rem; }
+.location-wrap { grid-template-columns: 1fr; }
+.location-image { min-height: 420px; }
+.earthbag-grid { grid-template-columns: 1fr; }
+.earthbag-image { min-height: 400px; }
+.health-split { grid-template-columns: 1fr; gap: 3rem; }
+.numbers-strip .inner { grid-template-columns: repeat(3, 1fr); }
+.num-item:nth-child(3) { border-right: none; }
+}
+@media (max-width: 768px) {
+.hero { padding: 0 24px 80px; }
+.hero-scroll { right: 24px; }
+.sec { padding: 80px 24px; }
+.numbers-strip { padding: 50px 24px; }
+.numbers-strip .inner { grid-template-columns: repeat(2, 1fr); }
+.num-item:nth-child(2) { border-right: none; }
+.num-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.08); }
+.vision-grid { grid-template-columns: 1fr; }
+.location-content { padding: 60px 24px; }
+.earthbag-content { padding: 60px 24px; }
+.pioneer { padding: 90px 24px; }
+.final-cta { padding: 90px 24px; }
+footer { padding: 50px 24px; }
+nav { padding: 1rem 1.5rem; }
+.nav-link { display: none; }
+}
+@media (max-width: 500px) {
+.numbers-strip .inner { grid-template-columns: repeat(2, 1fr); }
+.earthbag-specs { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
 </head>
 <body>
 
-  <!-- --- HEADER --- -->
-  <h1>Arrives 2025</h1>
+<!-- NAV -->
 
-  <!-- --- OPTIONAL SUBTITLE --- -->
-  <h2>Your Subtitle Here</h2>
+<nav id="nav">
+  <a href="index.html" class="nav-logo">🌿 Elysian Wells</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="apply.html" class="nav-link">Apply</a>
+    <a href="apply.html" class="nav-cta">Apply Now</a>
+  </div>
+</nav>
 
-  <!-- --- IMAGE --- -->
-  <img src="images/catbomb5.JPG" alt="EWe">
+<!-- ── HERO ── -->
 
-</body>
-</html>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">A Mythopoetic Community · Latin America</div>
+    <h1 class="hero-h1">
+      Decentralized<br>
+      Off-Grid<br>
+      <em>Pura Vida</em>
+    </h1>
+    <p class="hero-tagline">Welcome to Elysian Wells, an autonomous village of twelve people living in a beautiful part of Latin America who are building a life based on clean water, honest food, genuine community and freedom from the stresses of everyday modern-day life.  </p>
+    <div class="hero-actions">
+      <a href="apply.html" class="btn-primary">Apply for a Founding Seat</a>
+      <a href="about.html" class="btn-ghost">Our Story & Philosophy</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span></div>
+</section>
 
+<!-- ── THE PROBLEM ── -->
 
+<section class="sec sec-ink">
+  <div class="inner">
+    <div class="problem-grid">
+      <div class="problem-left">
+        <span class="label">An Honest Reckoning</span>
+        <h2>Something is wrong.<br>You already know it.</h2>
+        <div class="rule"></div>
+        <p class="body">This is not a conspiracy. It is not pessimism. It is the quiet observation that the system most of us were born into — the one that promised a good job, a safe house, a meaningful life in exchange for compliance and productivity — is not delivering on that promise. And it hasn’t been for a long time.</p>
+        <p class="body">There is no need to stay inside of a broken system and forced to adapt to it’s demands. Elysian Wells was designed for those of us who feel called towards a new way of living, one that is immersed in nature, where food is grown on our land and clean water bubbles up from wells and streams – all without the need for a utility bill or any municipal reliance.</p>
+<p class="body">Elysian Wells is not an escape from reality, it is a return to the only one that makes sense.</p>
+      </div>
+      <div class="problem-right">
+        <span style="font-size: 0.68rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #D4A853; opacity: 0.7; display: block; margin-bottom: 1.8rem;">What we are leaving behind</span>
+
+```
+    <div class="problem-item">
+      <h4>⏰ Someone else's schedule</h4>
+      <p>The alarm. The commute. The meeting that could have been an email. More hours, more output, more consumption — and less time, less rest, less life. The system runs on our exhaustion. It was designed to.</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>🏭 Food that travelled further than you did</h4>
+      <p>Industrial supply chains, nutritional emptiness dressed up in colorful packaging, GMO and pesticide-laden food grown by strangers, processed by corporations, and delivered with no connection to the land, the season, or the people who produced it.</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>🚰 Water you have to trust</h4>
+      <p>Municipal treatment, chlorine, fluoride, pharmaceutical residue, and a monthly bill for the privilege. A dependency on systems we cannot inspect, cannot control, and cannot opt out of.</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>🔑 Renting your life month to month</h4>
+      <p>Belonging contingent on continued payment. A landlord who can raise the price or take it back. No land, no roots, no permanence</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>📱 Connection on a screen</h4>
+      <p>Algorithms replacing conversation. Notifications replacing presence.  The loneliness of a city of millions where no one knows their neighbour’s name.</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>⚠️ No plan when things go wrong</h4>
+      <p>One power grid. One supply chain. One government. One passport. A life built entirely on the assumption that the systems around us will hold — and no alternative solution for when they don’t.</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>🧊 Six months of winter</h4>
+      <p>A climate that makes year-round food growing difficult, turns self-sufficiency into a heroic undertaking, and extracts a psychological toll that most people have stopped noticing. Half the year spent waiting for the other half to begin.</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>📈 Rising costs and shrinking freedoms</h4>
+      <p>Taxes that climb. Regulations that multiply. Cost of living that becomes nonsensical. A government that grows larger and more intrusive with every decade, spending our hard-earned dollars on programs and services that often clash with our ideals and needs.</p>
+    </div>
+
+    <div class="problem-item">
+      <h4>⌛ Politicians who no longer serve us</h4>
+      <p>Left or right, the pattern is the same — career politicians propping up extractive systems that enriches the few at the expense of the many. Institutions hollowed out. Trust eroded. A social contract designed for a world that no longer exists. The system is not broken. It is working exactly as designed — just not for us.</p>
+    </div>
+
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── THOREAU QUOTE ── -->
+
+<div style="background: #1C3A2A; padding: 90px 80px; text-align: center;">
+  <div style="max-width: 860px; margin: 0 auto;">
+    <span style="font-family: 'Cormorant Garamond', serif; font-size: 7rem; font-weight: 300; line-height: 0.5; color: rgba(212,168,83,0.15); display: block; margin-bottom: 1.5rem;">"</span>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.8vw, 2.2rem); font-weight: 300; font-style: italic; line-height: 1.45; color: #F8F4ED; margin-bottom: 2rem;">I went to the woods because I wished to live deliberately, to front only the essential facts of life, and see if I could not learn what it had to teach, and not, when I came to die, discover that I had not lived.</p>
+    <div style="width: 40px; height: 1px; background: #D4A853; margin: 0 auto 1.5rem; opacity: 0.5;"></div>
+    <span style="font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #D4A853;">Henry David Thoreau · Walden, 1854</span>
+  </div>
+</div>
+
+<!-- ── THE VISION ── -->
+
+<section class="sec sec-dark">
+  <div class="inner">
+    <span class="label">The Life We Are Building</span>
+    <h2>The more Beautiful World our Hearts know Possible</h2>
+    <div class="rule"></div>
+
+```
+<p class="body">Most people live inside systems they did not design, eating food they did not grow, drinking water they cannot trace, working for visions that are not their own. The alternative is not ideology — it is architecture. A community designed from first principles around what human beings actually need to flourish: clean food and water produced on site, energy independence, genuine belonging, meaningful work, financial resilience, and the sovereignty to own our days.</p>
+
+<p class="body">Elysian Wells produces coffee, cacao, fruit, vegetables, eggs, honey, medicinal herbs, and eventually shared income from community enterprises. It generates its own power, stores its own water, and functions when outside systems fail. It offers legal residency in a second country, a custom-built home on private land, and a founding circle of eleven other people who chose the lifestyle we are choosing. The result is not a retreat or a surrender to modern extractive systems based on coercision and taxes. It is a complete and self-sustaining alternative to the life most of us are quietly exhausted by. </p>
+
+<div class="vision-grid">
+  <div class="vision-card">
+    <span class="vision-card-icon">🌅</span>
+    <h4>Sovereignty Over Your Days</h4>
+    <p>Our time is our own. Ten hours per week of community contribution is all thats needed to keep the village running. The rest belongs entirely to your work, your creative life, your exploration, or simply the unscheduled pleasure of being alive.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">🍃</span>
+    <h4>Real Food From Real Land</h4>
+    <p>Year-round organic gardens, a thriving food forest, fresh eggs, spring-fed water with zero chemical treatment. You will eat better produce than you have ever eaten — grown fifty metres from your front door.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">👥</span>
+    <h4>Twelve Conscious People Who Chose This</h4>
+    <p>Not neighbours assigned by proximity and property value. Twelve souls who read every word of this page, thought hard about what it asked of them, and said yes. That is the community you are joining.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">🤝</span>
+    <h4>A Support Network That Has Your Back</h4>
+    <p>A community of twelve is also a network of twelve skill sets, life experiences, and areas of knowledge. Mentorship flows naturally here as the daily consequence of living alongside people who are genuinely invested in each other’s growth and success.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">🔌</span>
+    <h4>Off-Grid By Design</h4>
+    <p>Solar power. Spring water. No municipal utilities, no corporate dependencies, no bills that arrive whether or not the service works. Self-sufficiency is not the backup plan — it is the whole plan.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">💰</span>
+    <h4>Financial Sovereignty</h4>
+    <p>Both digital and physical income models are woven into the community’s design — producing active and passive revenue streams for members in good standing. Elysian Wells is built to generate financial independence, not just to reduce costs.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">🌙</span>
+    <h4>A Sacred Life</h4>
+    <p>Solstice gatherings and lunar ceremonies woven into the rhythm of the year. Peace and privacy helps protect and nurtures the spirit, making this an ideal sanctuary to deepen one’s faith and spirituality with. We are a community that takes the sacred seriously because it understands that meaning is cultivated and does not arrive by magic.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">🏛️</span>
+    <h4>Something That Will Last</h4>
+    <p>Homes built to stand a hundred years. A governance model designed to prevent the failures that have ended other communities. A founding circle committed to self-sufficiency and creating an exciting story of the journey for themselves.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">⚡</span>
+    <h4>A Living Myth</h4>
+    <p>Most people dream about a life like this and never act on it. The few who do become something rare — pioneers in an age that has forgotten what pioneering looks like. This is the kind of story that gets told for generations.</p>
+  </div>
+  <div class="vision-card">
+    <span class="vision-card-icon">🌍</span>
+    <h4>A Blueprint for the World</h4>
+    <p>Elysian Wells is designed to be replicated in an easy to follow process of deployment. Every system, every governance structure, every economic model documented and open-sourced for anyone in the world to follow. The founding circle doesn’t just build a village — they prove it can be done, and leave instructions behind.</p>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── THE LOCATION ── -->
+
+<div class="location-wrap">
+  <div class="location-image">
+    <img src="https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?w=900&q=80" alt="Cloud forest landscape" loading="lazy">
+    <span class="location-image-caption">Latin America · Cloud Forest Region</span>
+  </div>
+  <div class="location-content">
+    <span class="label">The Setting</span>
+    <h2>One of the most<br>extraordinary places<br>on earth.</h2>
+    <div class="rule"></div>
+    <p class="body">The location of Elysian Wells is disclosed exclusively to accepted members. What we can tell you is that it sits in a region of Latin America celebrated the world over for its air quality, longevity, biodiversity, and the deep strangeness of its ancient history.</p>
+    <div class="location-highlights">
+      <div class="location-highlight">
+        <span class="location-highlight-icon">🏔️</span>
+        <div class="location-highlight-text">
+          <strong>Volcanic Cloud Forest</strong>
+          Year-round spring temperatures, mineral-rich volcanic soil, cloud forest air rated among the cleanest on the planet.
+        </div>
+      </div>
+      <div class="location-highlight">
+        <span class="location-highlight-icon">🗿</span>
+        <div class="location-highlight-text">
+          <strong>Ancient Megalithic Sites</strong>
+          A region of contested ancient history, with stone structures and artefacts that mainstream archaeology has yet to fully explain.
+        </div>
+      </div>
+      <div class="location-highlight">
+        <span class="location-highlight-icon">🌿</span>
+        <div class="location-highlight-text">
+          <strong>Extraordinary Biodiversity</strong>
+         Thousands of orchid species, hundreds of hummingbird varieties, and wildlife found nowhere else on earth.
+        </div>
+      </div>
+      <div class="location-highlight">
+        <span class="location-highlight-icon">🌍</span>
+        <div class="location-highlight-text">
+          <strong>Legal Residency Pathway</strong>
+          A straightforward immigration process accessible to North Americans, Europeans, and Australians. Permanent residency achievable within approximately 24 months.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── THE EARTHBAG HOME ── -->
+
+<div class="earthbag-grid">
+  <div class="earthbag-content">
+    <span class="label on-light">Your Home & Your Land</span>
+    <h2>Built by hand.<br>Yours for<br><em style="font-style: italic; color: #A07830;">a lifetime.</em></h2>
+    <div class="rule dark"></div>
+    <p class="body">Every founding member receives a custom-built home on a minimum one-acre private plot. Three original exterior designs are available — each one sculptural, characterful, and alive in a way that modern construction has failed to deliver.</p>
+    <p class="body">The earthbag method — pioneered by architect Nader Khalili and refined by NASA — produces structures of extraordinary resilience. Naturally temperature-regulated by the thermal mass of the walls, porous enough to breathe, and quiet enough to record music in. Community-built by the founding circle during the construction years. Your acre is yours to shape freely — grow cacao, fruit trees, medicinal herbs, build a workshop or studio, or let it breathe as forest.</p>
+
+```
+<!-- FEATURE LIST -->
+<div style="display: flex; flex-direction: column; gap: 1px; background: #C8BEA8; margin-top: 2rem;">
+  <div style="background: #F8F4ED; padding: 1rem 1.4rem; display: flex; align-items: center; gap: 1rem;">
+    <span style="font-size: 1.2rem; flex-shrink: 0;">🏡</span>
+    <div>
+      <span style="font-size: 0.78rem; font-weight: 500; color: #1C3A2A; display: block;">850+ sq ft · 3 exterior designs</span>
+      <span style="font-size: 0.72rem; color: #777;">Two bedrooms, bath, kitchen, Interior fully customisable — your vision, your finishes, your space</span>
+    </div>
+  </div>
+  <div style="background: #F2EEE6; padding: 1rem 1.4rem; display: flex; align-items: center; gap: 1rem;">
+    <span style="font-size: 1.2rem; flex-shrink: 0;">🌿</span>
+    <div>
+      <span style="font-size: 0.78rem; font-weight: 500; color: #1C3A2A; display: block;">Minimum 1 acre of private land — yours to grow on</span>
+      <span style="font-size: 0.72rem; color: #777;">Privacy hedges and trees planted by the community · No frost · Arable soil · Year-round growing</span>
+    </div>
+  </div>
+  <div style="background: #F8F4ED; padding: 1rem 1.4rem; display: flex; align-items: center; gap: 1rem;">
+    <span style="font-size: 1.2rem; flex-shrink: 0;">🔌</span>
+    <div>
+      <span style="font-size: 0.78rem; font-weight: 500; color: #1C3A2A; display: block;">Full electrical wiring installed · Low maintenance by design</span>
+      <span style="font-size: 0.72rem; color: #777;">No painting, no re-cladding, no ongoing structural work required</span>
+    </div>
+  </div>
+  <div style="background: #F2EEE6; padding: 1rem 1.4rem; display: flex; align-items: center; gap: 1rem;">
+    <span style="font-size: 1.2rem; flex-shrink: 0;">🔥</span>
+    <div>
+      <span style="font-size: 0.78rem; font-weight: 500; color: #1C3A2A; display: block;">Fire resistant · Termite proof · Mould resistant</span>
+      <span style="font-size: 0.72rem; color: #777;">Earthquake resistant · Naturally temperature-regulated, porous walls for better air-quality and reduced allergens</span>
+    </div>
+  </div>
+  <div style="background: #F8F4ED; padding: 1rem 1.4rem; display: flex; align-items: center; gap: 1rem;">
+    <span style="font-size: 1.2rem; flex-shrink: 0;">☀️</span>
+    <div>
+      <span style="font-size: 0.78rem; font-weight: 500; color: #1C3A2A; display: block;">1.6kW solar array · 10kWh battery storage</span>
+      <span style="font-size: 0.72rem; color: #777;">Off-grid power. No utility bills. Generator backup.</span>
+    </div>
+  </div>
+  <div style="background: #F2EEE6; padding: 1rem 1.4rem; display: flex; align-items: center; gap: 1rem;">
+    <span style="font-size: 1.2rem; flex-shrink: 0;">💧</span>
+    <div>
+      <span style="font-size: 0.78rem; font-weight: 500; color: #1C3A2A; display: block;">Rainwater catchment & storage systems</span>
+      <span style="font-size: 0.72rem; color: #777;">Harvested, filtered, and stored on site. Zero municipal dependency.</span>
+    </div>
+  </div>
+  <div style="background: #F8F4ED; padding: 1rem 1.4rem; display: flex; align-items: center; gap: 1rem;">
+    <span style="font-size: 1.2rem; flex-shrink: 0;">⏳</span>
+    <div>
+      <span style="font-size: 0.78rem; font-weight: 500; color: #1C3A2A; display: block;">100+ year lifespan</span>
+      <span style="font-size: 0.72rem; color: #777;">Built to outlast its owners and pass something real to those who follow.</span>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+  <div class="earthbag-image">
+    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=80" alt="Natural earthbag home" loading="lazy">
+  </div>
+</div>
+
+<!-- ── HEALTH ── -->
+
+<section class="sec sec-forest">
+  <div class="inner">
+    <span class="label">Why This Place, Specifically</span>
+    <h2>The air, the water,<br>the food. The body<br>knows the difference.</h2>
+    <div class="rule"></div>
+    <div class="health-split">
+      <div>
+        <p class="body">Most people living in cities have forgotten what clean air feels like. What spring water tastes like. What it means to eat food that was grown in living volcanic soil and harvested that morning. The body does not forget — it simply adapts, compensates, and quiets its complaints until the contrast becomes impossible to ignore.</p>
+        <p class="body">The region where Elysian Wells is being established is one of the few places on earth where all three — air, water, and food quality — are exceptional by any measure. The cloud forest produces some of the most oxygenated and particle-free air on the planet. The soil delivers a mineral density that depleted industrial farmland cannot replicate. The spring water naturally delivered in this area requires no treatment, no filtration, no faith in a municipal system to manage.</p>
+      </div>
+      <div>
+        <p class="body">This is also a region celebrated in longevity research — not because of genetics, but because of the environment. People here live long because the basics of life — air, water, food, community, and purpose — are present and intact in a place of true wild beauty.</p>
+        <p class="body">Elysian Wells is not a health retreat. But the health outcomes of living here will make themselves obvious. When food, water and energy is secured – when costs are minimal, and when community and connection is present, it isn’t just our bodies getting nourished, our souls and spirit receives the same. This is a toxin-free environment naturally by itself without a 5G tower in sight.</p>
+        <a href="about.html" class="btn-ghost" style="display: none;">Read Our Philosophy →</a>
+
+```
+    <!-- WEATHER STRIP -->
+    <div style="margin-top: 2rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem 2rem;">
+      <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+        <span style="font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(248,244,237,0.45);">Year-Round Climate · Cloud Forest Region</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.08);">
+
+        <div style="background: rgba(255,255,255,0.04); padding: 1.2rem 1rem; text-align: center;">
+          <span style="font-size: 1.6rem; display: block; margin-bottom: 0.4rem;">☀️</span>
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: #D4A853; display: block; line-height: 1;">24°C</span>
+          <span style="font-size: 0.65rem; color: rgba(248,244,237,0.4); display: block; margin-top: 0.1rem;">75°F</span>
+          <span style="font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(248,244,237,0.4); display: block; margin-top: 0.5rem;">Avg High</span>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.04); padding: 1.2rem 1rem; text-align: center;">
+          <span style="font-size: 1.6rem; display: block; margin-bottom: 0.4rem;">🌤️</span>
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: #D4A853; display: block; line-height: 1;">16°C</span>
+          <span style="font-size: 0.65rem; color: rgba(248,244,237,0.4); display: block; margin-top: 0.1rem;">61°F</span>
+          <span style="font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(248,244,237,0.4); display: block; margin-top: 0.5rem;">Avg Low</span>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.04); padding: 1.2rem 1rem; text-align: center;">
+          <span style="font-size: 1.6rem; display: block; margin-bottom: 0.4rem;">😊</span>
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: #D4A853; display: block; line-height: 1;">300+</span>
+          <span style="font-size: 0.65rem; color: rgba(248,244,237,0.4); display: block; margin-top: 0.1rem;">days/year</span>
+          <span style="font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(248,244,237,0.4); display: block; margin-top: 0.5rem;">Sunshine</span>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.04); padding: 1.2rem 1rem; text-align: center;">
+          <span style="font-size: 1.6rem; display: block; margin-bottom: 0.4rem;">🥶</span>
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: #D4A853; display: block; line-height: 1;">0</span>
+          <span style="font-size: 0.65rem; color: rgba(248,244,237,0.4); display: block; margin-top: 0.1rem;">days/year</span>
+          <span style="font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(248,244,237,0.4); display: block; margin-top: 0.5rem;">Frost</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ── NUMBERS STRIP ── -->
+
+<div class="numbers-strip">
+  <div class="inner">
+    <div class="num-item">
+      <span class="num-value">12</span>
+      <span class="num-unit">total</span>
+      <span class="num-label">Founding Members</span>
+    </div>
+    <div class="num-item">
+      <span class="num-value">10</span>
+      <span class="num-unit">seats left</span>
+      <span class="num-label">Available Now</span>
+    </div>
+    <div class="num-item">
+      <span class="num-value">$88,800</span>
+      <span class="num-unit">USD all-in</span>
+      <span class="num-label">One-Time Investment</span>
+    </div>
+    <div class="num-item">
+      <span class="num-value">1+</span>
+      <span class="num-unit">acres</span>
+      <span class="num-label">Private Land</span>
+    </div>
+    <div class="num-item">
+      <span class="num-value">10</span>
+      <span class="num-unit">hrs / week</span>
+      <span class="num-label">Community Contribution</span>
+    </div>
+    <div class="num-item">
+      <span class="num-value">&lt;$2K</span>
+      <span class="num-unit">per year</span>
+      <span class="num-label">Annual Dues</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── MARGARET MEAD QUOTE ── -->
+
+<div style="background: #EDE8DF; padding: 90px 80px; text-align: center;">
+  <div style="max-width: 860px; margin: 0 auto;">
+    <span style="font-family: 'Cormorant Garamond', serif; font-size: 7rem; font-weight: 300; line-height: 0.5; color: rgba(160,120,48,0.2); display: block; margin-bottom: 1.5rem;">"</span>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.8vw, 2.2rem); font-weight: 300; font-style: italic; line-height: 1.45; color: #1C3A2A; margin-bottom: 2rem;">Never doubt that a small group of thoughtful, committed citizens can change the world. Indeed, it is the only thing that ever has.</p>
+    <div style="width: 40px; height: 1px; background: #A07830; margin: 0 auto 1.5rem; opacity: 0.5;"></div>
+    <span style="font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #A07830;">Margaret Mead · Cultural Anthropologist</span>
+  </div>
+</div>
+
+<!-- ── PIONEER ── -->
+
+<div class="pioneer">
+  <div class="inner">
+    <span class="label" style="display: block; margin-bottom: 1rem;">The Act Itself</span>
+    <div class="pioneer-quote">
+      "There is a story that lives in almost every Western family. A grandparent who left everything familiar and crossed an ocean toward something unknown. Who arrived somewhere foreign with almost nothing and <em>built a life so solid it echoed forward through generations.</em>"
+    </div>
+    <div class="pioneer-rule"></div>
+    <p class="pioneer-body">That story is not over. It is simply waiting for the next generation of people courageous enough to write it. Moving to a new country, leaving behind the familiar, and choosing to build something real alongside strangers is not a small thing. It is one of the most meaningful acts a human being can undertake. </p>
+    <p class="pioneer-body">The founding circle of Elysian Wells will be twelve people who felt called to something like this — and chose to act. That distinction matters. It will shape who we become, what we build, and the story we leave behind for others to be inspired by.</p>
+<p class="pioneer-body">Most people who feel called to something like this never act on it. We often live lives of quiet desperation, longing for purpose and peace when the solution has always been right here. In the heart of nature.</p>
+    <p class="pioneer-body">We invite you to embark with us on an adventure of a lifetime. The more beautiful world our hearts know is possible, is possible. If we have faith and conviction enough to help build it.</p>
+<p class="pioneer-closing">Because if not us, then who? </p>
+<p class="pioneer-closing">– If not now, then when?</p>
+
+  </div>
+</div>
+
+<!-- ── FINAL CTA ── -->
+
+<div class="final-cta">
+  <div class="inner">
+    <div class="seats-badge">
+      <div class="seats-dot"></div>
+      <span>10 of 12 seats remaining · Applications open</span>
+    </div>
+    <h2>Join the village that works<br>for everyone.</h2>
+    <p>If something in this page has stirred a recognition that this is for you — trust it. The Apply page describes everything you need to know about what comes next.</p>
+
+    <a href="apply.html" class="btn-primary">Apply for a Founding Seat</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <span class="footer-logo">🌿 Elysian Wells</span>
+  <span style="font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic; font-weight: 300; color: #D4A853; letter-spacing: 0.12em; display: block; margin-top: 0; margin-bottom: 2rem;">a mythopoetic community</span>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="apply.html">Apply</a>
+    <a href="https://elysianwells.ca">elysianwells.ca</a>
+  </div>
+  <p>
+    <a href="mailto:elysianwells@proton.me">elysianwells@proton.me</a><br><br>
+    Elysian Wells is a privately organized intentional community project. Specific location details are disclosed exclusively to accepted founding members. This page is for informational purposes only and does not constitute a legal or financial commitment.<br><br>
+    © 2026 Elysian Wells. All rights reserved.
+  </p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/script
