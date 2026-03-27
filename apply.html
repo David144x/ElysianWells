@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — Elysian Wells</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:    #1C3A2A;
+    --moss:      #2E6B4F;
+    --sage:      #5A8A6A;
+    --gold:      #A07830;
+    --pale-gold: #D4A853;
+    --cream:     #F8F4ED;
+    --warm:      #EDE8DF;
+    --stone:     #C8BEA8;
+    --charcoal:  #2A2A2A;
+    --mist:      #F2EEE6;
+    --ink:       #1A1A1A;
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+a { color: inherit; text-decoration: none; }
+a:link, a:visited { color: inherit; }
+
+body {
+font-family: ‘Jost’, sans-serif;
+background: var(–ink);
+color: var(–cream);
+overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+padding: 1.2rem 2.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: all 0.3s ease;
+}
+nav.scrolled {
+background: rgba(26,26,26,0.97);
+backdrop-filter: blur(10px);
+box-shadow: 0 2px 30px rgba(0,0,0,0.4);
+}
+.nav-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.2rem;
+font-weight: 400;
+color: #F8F4ED !important;
+letter-spacing: 0.08em;
+text-decoration: none !important;
+text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-link {
+font-size: 0.72rem;
+font-weight: 400;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.5);
+text-decoration: none;
+transition: color 0.3s;
+}
+.nav-link:hover, .nav-link.active { color: var(–pale-gold); }
+.nav-cta {
+font-size: 0.72rem;
+font-weight: 600;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: #D4A853 !important;
+text-decoration: none;
+border: 2px solid #D4A853;
+padding: 8px 20px;
+transition: all 0.3s;
+text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+}
+.nav-cta:hover { background: #D4A853; color: #1C3A2A !important; text-shadow: none; }
+
+/* ── HERO SPLIT ── */
+.hero {
+min-height: 100vh;
+display: grid;
+grid-template-columns: 1fr 1fr;
+position: relative;
+}
+
+.hero-visual {
+position: relative;
+background: var(–forest);
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 80px 60px;
+overflow: hidden;
+}
+.hero-visual-bg {
+position: absolute; inset: 0;
+background-image: url(‘https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&q=80’);
+background-size: cover;
+background-position: center;
+opacity: 0.2;
+}
+.hero-visual::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: linear-gradient(to top, rgba(28,58,42,0.98) 0%, rgba(28,58,42,0.7) 50%, rgba(28,58,42,0.4) 100%);
+z-index: 1;
+}
+.hero-visual-content { position: relative; z-index: 2; }
+
+.seats-counter {
+display: inline-flex;
+align-items: center;
+gap: 1rem;
+background: rgba(212,168,83,0.12);
+border: 1px solid rgba(212,168,83,0.3);
+padding: 0.8rem 1.4rem;
+margin-bottom: 2.5rem;
+}
+.seats-dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+background: var(–pale-gold);
+animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.5; transform: scale(0.8); }
+}
+.seats-text {
+font-size: 0.75rem;
+font-weight: 400;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–pale-gold);
+}
+.seats-number {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 4.5rem;
+font-weight: 300;
+color: var(–cream);
+line-height: 1;
+display: block;
+margin-bottom: 0.3rem;
+opacity: 0;
+animation: slideUp 1s ease 0.4s forwards;
+}
+.seats-label {
+font-size: 0.72rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.45);
+display: block;
+margin-bottom: 2.5rem;
+opacity: 0;
+animation: slideUp 1s ease 0.6s forwards;
+}
+.hero-visual h1 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(2rem, 3.5vw, 3.2rem);
+font-weight: 300;
+color: var(–cream);
+line-height: 1.15;
+opacity: 0;
+animation: slideUp 1s ease 0.8s forwards;
+}
+.hero-visual h1 em { font-style: italic; color: var(–pale-gold); }
+.hero-visual-rule {
+width: 40px; height: 1px;
+background: var(–pale-gold);
+margin: 1.5rem 0;
+opacity: 0;
+animation: slideUp 1s ease 1s forwards;
+}
+.hero-visual p {
+font-size: 0.9rem;
+font-weight: 300;
+line-height: 1.8;
+color: rgba(248,244,237,0.6);
+max-width: 420px;
+margin-bottom: 0;
+opacity: 0;
+animation: slideUp 1s ease 1.1s forwards;
+}
+
+/* Form panel */
+.hero-form-panel {
+background: var(–cream);
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 120px 70px 80px;
+position: relative;
+}
+.hero-form-panel::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0;
+width: 1px; height: 100%;
+background: linear-gradient(to bottom, transparent, var(–stone), transparent);
+}
+
+.form-eyebrow {
+font-size: 0.7rem;
+font-weight: 500;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(–sage);
+margin-bottom: 1.2rem;
+display: block;
+opacity: 0;
+animation: slideUp 1s ease 0.5s forwards;
+}
+.form-heading {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(1.8rem, 3vw, 2.8rem);
+font-weight: 300;
+color: var(–forest);
+line-height: 1.2;
+margin-bottom: 0.8rem;
+opacity: 0;
+animation: slideUp 1s ease 0.7s forwards;
+}
+.form-rule {
+width: 40px; height: 1px;
+background: var(–gold);
+margin-bottom: 1.5rem;
+opacity: 0;
+animation: slideUp 1s ease 0.8s forwards;
+}
+.form-subheading {
+font-size: 0.92rem;
+font-weight: 300;
+line-height: 1.75;
+color: #555;
+margin-bottom: 2.5rem;
+max-width: 400px;
+opacity: 0;
+animation: slideUp 1s ease 0.9s forwards;
+}
+
+.email-form { opacity: 0; animation: slideUp 1s ease 1.1s forwards; }
+.input-wrap { position: relative; margin-bottom: 1rem; }
+.input-wrap label {
+display: block;
+font-size: 0.7rem;
+font-weight: 500;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–sage);
+margin-bottom: 0.6rem;
+}
+.input-wrap input {
+width: 100%;
+padding: 1rem 1.2rem;
+background: var(–mist);
+border: 1px solid var(–stone);
+border-radius: 0;
+font-family: ‘Jost’, sans-serif;
+font-size: 0.95rem;
+font-weight: 300;
+color: var(–charcoal);
+outline: none;
+transition: border-color 0.3s, background 0.3s;
+-webkit-appearance: none;
+}
+.input-wrap input:focus { border-color: var(–moss); background: #fff; }
+.input-wrap input::placeholder { color: rgba(42,42,42,0.3); }
+
+.submit-btn {
+width: 100%;
+padding: 1.1rem;
+background: var(–forest);
+color: var(–cream);
+font-family: ‘Jost’, sans-serif;
+font-size: 0.8rem;
+font-weight: 500;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+border: none;
+cursor: pointer;
+transition: background 0.3s;
+margin-top: 0.5rem;
+}
+.submit-btn:hover { background: var(–moss); }
+
+.confirmation {
+display: none;
+text-align: center;
+padding: 2rem 0;
+}
+.confirmation.visible { display: block; }
+.confirmation-icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+.confirmation h3 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.8rem;
+font-weight: 300;
+color: var(–forest);
+margin-bottom: 0.8rem;
+}
+.confirmation p {
+font-size: 0.9rem;
+font-weight: 300;
+line-height: 1.8;
+color: #555;
+max-width: 360px;
+margin: 0 auto;
+}
+.form-privacy {
+font-size: 0.75rem;
+font-weight: 300;
+color: rgba(42,42,42,0.4);
+line-height: 1.7;
+margin-top: 1.2rem;
+text-align: center;
+}
+
+@keyframes slideUp {
+from { opacity: 0; transform: translateY(20px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SHARED SECTION STYLES ── */
+.section-dark { background: var(–charcoal); padding: 100px 80px; }
+.section-dark .inner { max-width: 1100px; margin: 0 auto; }
+.section-forest { background: var(–forest); padding: 100px 80px; }
+.section-forest .inner { max-width: 1100px; margin: 0 auto; }
+.section-warm { background: var(–warm); padding: 100px 80px; }
+.section-warm .inner { max-width: 1100px; margin: 0 auto; }
+.section-mist { background: var(–mist); padding: 100px 80px; }
+.section-mist .inner { max-width: 1100px; margin: 0 auto; }
+.section-cream { background: var(–cream); padding: 100px 80px; }
+.section-cream .inner { max-width: 1100px; margin: 0 auto; }
+
+.label {
+font-size: 0.72rem;
+font-weight: 500;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(–pale-gold);
+margin-bottom: 1.2rem;
+display: block;
+}
+.label.dark { color: var(–sage); }
+.label.moss { color: var(–moss); }
+
+h2 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(2rem, 4vw, 3.2rem);
+font-weight: 300;
+line-height: 1.1;
+margin-bottom: 1.5rem;
+}
+.section-dark h2, .section-forest h2 { color: var(–cream); }
+.section-warm h2, .section-mist h2, .section-cream h2 { color: var(–forest); }
+
+.line-divider {
+width: 50px; height: 1px;
+background: var(–pale-gold);
+margin: 1.8rem 0 2.5rem;
+}
+.line-divider.dark { background: var(–gold); }
+
+p.body {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.9;
+margin-bottom: 1.3rem;
+max-width: 700px;
+}
+.section-dark p.body, .section-forest p.body { color: rgba(248,244,237,0.72); }
+.section-warm p.body, .section-mist p.body, .section-cream p.body { color: #3a3a3a; }
+
+/* ── PROCESS STEPS ── */
+.process-steps {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 1.5px;
+background: rgba(255,255,255,0.06);
+margin: 3rem 0;
+}
+.step {
+background: rgba(255,255,255,0.03);
+padding: 2.5rem 2rem;
+position: relative;
+transition: background 0.3s;
+}
+.step:hover { background: rgba(255,255,255,0.06); }
+.step-num {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 5rem;
+font-weight: 300;
+color: rgba(212,168,83,0.1);
+position: absolute;
+top: 0.5rem; right: 1.2rem;
+line-height: 1;
+}
+.step-icon { font-size: 1.6rem; display: block; margin-bottom: 1rem; }
+.step h4 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.25rem;
+font-weight: 500;
+color: var(–pale-gold);
+margin-bottom: 0.6rem;
+}
+.step p {
+font-size: 0.88rem;
+line-height: 1.7;
+color: rgba(248,244,237,0.55);
+margin-bottom: 0;
+}
+
+/* ── PREVIEW QUESTIONS ── */
+.question-cards {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5px;
+background: rgba(255,255,255,0.08);
+margin: 3rem 0;
+}
+.question-card {
+background: rgba(255,255,255,0.04);
+padding: 2.8rem 2.2rem;
+position: relative;
+transition: background 0.3s;
+}
+.question-card:hover { background: rgba(255,255,255,0.07); }
+.question-number {
+font-size: 0.68rem;
+font-weight: 400;
+letter-spacing: 0.25em;
+color: var(–pale-gold);
+opacity: 0.6;
+display: block;
+margin-bottom: 1.2rem;
+}
+.question-card h4 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.5rem;
+font-weight: 400;
+font-style: italic;
+color: var(–cream);
+line-height: 1.3;
+margin-bottom: 1rem;
+}
+.question-card p {
+font-size: 0.85rem;
+line-height: 1.75;
+color: rgba(248,244,237,0.5);
+margin-bottom: 0;
+}
+.question-card::after {
+content: ‘’;
+position: absolute;
+bottom: 0; left: 2.2rem;
+width: 30px; height: 2px;
+background: var(–pale-gold);
+opacity: 0.3;
+transition: width 0.3s, opacity 0.3s;
+}
+.question-card:hover::after { width: 60px; opacity: 0.7; }
+.questions-note {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1rem;
+font-style: italic;
+color: rgba(248,244,237,0.35);
+text-align: center;
+margin-top: 1rem;
+}
+
+/* ── STEWARDSHIP ROLES ── */
+.roles-intro {
+max-width: 700px;
+margin-bottom: 3rem;
+}
+.roles-intro p {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.9;
+color: #3a3a3a;
+margin-bottom: 0;
+}
+
+.roles-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2px;
+background: var(–stone);
+margin: 2rem 0;
+}
+
+.role-card {
+background: var(–cream);
+cursor: pointer;
+transition: background 0.25s;
+position: relative;
+}
+.role-card:hover { background: var(–mist); }
+.role-card.open { background: var(–forest); }
+
+.role-header {
+padding: 1.8rem 2rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 1rem;
+user-select: none;
+}
+.role-header-left { display: flex; align-items: center; gap: 1.2rem; }
+.role-emoji { font-size: 1.6rem; flex-shrink: 0; }
+.role-names {}
+.role-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.2rem;
+font-weight: 500;
+color: var(–forest);
+display: block;
+line-height: 1.2;
+transition: color 0.25s;
+}
+.role-card.open .role-title { color: var(–pale-gold); }
+.role-subtitle {
+font-size: 0.68rem;
+font-weight: 400;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–sage);
+display: block;
+margin-top: 0.2rem;
+transition: color 0.25s;
+}
+.role-card.open .role-subtitle { color: rgba(248,244,237,0.45); }
+
+.role-toggle {
+width: 28px; height: 28px;
+border: 1px solid var(–stone);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+transition: all 0.3s;
+color: var(–sage);
+font-size: 0.8rem;
+}
+.role-card.open .role-toggle {
+border-color: var(–pale-gold);
+color: var(–pale-gold);
+transform: rotate(45deg);
+}
+
+.role-body {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.4s ease, padding 0.3s ease;
+padding: 0 2rem;
+}
+.role-card.open .role-body {
+max-height: 500px;
+padding: 0 2rem 2rem;
+}
+
+.role-description {
+font-size: 0.9rem;
+font-weight: 300;
+line-height: 1.8;
+color: rgba(248,244,237,0.78);
+margin-bottom: 1.2rem;
+padding-top: 0.5rem;
+border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.role-candidates-label {
+font-size: 0.65rem;
+font-weight: 500;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–pale-gold);
+opacity: 0.7;
+display: block;
+margin-bottom: 0.6rem;
+}
+.role-candidates {
+font-size: 0.82rem;
+font-weight: 300;
+color: rgba(248,244,237,0.5);
+line-height: 1.7;
+font-style: italic;
+}
+
+.roles-note {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1rem;
+font-style: italic;
+color: #888;
+text-align: center;
+margin-top: 1.5rem;
+}
+
+/* ── WHO SHOULD APPLY ── */
+.who-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5px;
+background: var(–stone);
+margin: 3rem 0;
+}
+.who-card p { font-size: 0.87rem; line-height: 1.75; }
+.who-card {
+background: var(–mist);
+padding: 2.2rem 2rem;
+transition: background 0.3s;
+}
+.who-card:hover { background: var(–warm); }
+.who-icon { font-size: 1.8rem; display: block; margin-bottom: 0.8rem; }
+.who-card h4 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.2rem;
+font-weight: 500;
+color: var(–forest);
+margin-bottom: 0.5rem;
+}
+.who-card p {
+font-size: 0.87rem;
+line-height: 1.7;
+color: #555;
+margin-bottom: 0;
+}
+
+/* ── INCLUDED ── */
+.included-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6rem;
+align-items: start;
+}
+.feature-list { list-style: none; margin: 1.5rem 0; }
+.feature-list li {
+display: flex;
+gap: 1rem;
+align-items: flex-start;
+padding: 0.9rem 0;
+border-bottom: 1px solid rgba(0,0,0,0.07);
+font-size: 0.93rem;
+font-weight: 300;
+line-height: 1.65;
+color: #3a3a3a;
+}
+.feature-list li:last-child { border-bottom: none; }
+.feature-list li::before {
+content: ‘◆’;
+color: var(–pale-gold);
+font-size: 0.45rem;
+margin-top: 0.5rem;
+flex-shrink: 0;
+}
+
+.investment-block {
+background: var(–forest);
+padding: 3rem 2.5rem;
+text-align: center;
+position: sticky;
+top: 120px;
+}
+.investment-label {
+font-size: 0.68rem;
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.4);
+margin-bottom: 0.8rem;
+display: block;
+}
+.investment-amount {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 3.5rem;
+font-weight: 300;
+color: var(–pale-gold);
+display: block;
+line-height: 1;
+margin-bottom: 0.3rem;
+}
+.investment-currency {
+font-size: 0.72rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: rgba(248,244,237,0.35);
+display: block;
+margin-bottom: 2rem;
+}
+.investment-divider {
+width: 40px; height: 1px;
+background: rgba(212,168,83,0.4);
+margin: 0 auto 2rem;
+}
+.investment-block p {
+font-size: 0.85rem;
+line-height: 1.75;
+color: rgba(248,244,237,0.6);
+margin-bottom: 0;
+}
+.investment-note {
+margin-top: 2rem;
+padding-top: 1.5rem;
+border-top: 1px solid rgba(255,255,255,0.08);
+font-size: 0.78rem;
+font-style: italic;
+color: rgba(248,244,237,0.28);
+line-height: 1.6;
+}
+
+/* ── DISCRETION ── */
+.discretion-strip {
+background: var(–ink);
+padding: 60px 80px;
+border-top: 1px solid rgba(255,255,255,0.04);
+}
+.discretion-strip .inner {
+max-width: 1100px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: auto 1fr;
+gap: 3rem;
+align-items: center;
+}
+.discretion-icon { font-size: 2.5rem; opacity: 0.5; }
+.discretion-strip h4 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.3rem;
+font-weight: 400;
+color: var(–cream);
+margin-bottom: 0.5rem;
+}
+.discretion-strip p {
+font-size: 0.87rem;
+font-weight: 300;
+color: rgba(248,244,237,0.4);
+line-height: 1.75;
+margin: 0;
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+background: var(–forest);
+padding: 120px 80px;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+.final-cta::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(46,107,79,0.5) 0%, transparent 70%);
+}
+.final-cta .inner { position: relative; max-width: 680px; margin: 0 auto; }
+.final-cta h2 { color: var(–cream); margin-bottom: 1.2rem; }
+.final-cta p {
+color: rgba(248,244,237,0.6);
+margin: 0 auto 2.5rem;
+text-align: center;
+max-width: 500px;
+font-size: 0.95rem;
+font-weight: 300;
+line-height: 1.8;
+}
+.final-cta-btn {
+display: inline-block;
+padding: 16px 52px;
+background: var(–pale-gold);
+color: var(–forest);
+font-size: 0.8rem;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+text-decoration: none;
+transition: all 0.3s;
+margin: 0.4rem;
+cursor: pointer;
+border: none;
+font-family: ‘Jost’, sans-serif;
+}
+.final-cta-btn:hover { background: var(–cream); transform: translateY(-2px); }
+.final-cta-closing {
+margin-top: 3rem;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1rem;
+font-style: italic;
+color: rgba(248,244,237,0.28);
+}
+
+/* ── FOOTER ── */
+footer {
+background: var(–charcoal);
+padding: 50px 80px;
+text-align: center;
+}
+.footer-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.6rem;
+color: #F8F4ED;
+opacity: 1;
+margin-bottom: 0.5rem;
+letter-spacing: 0.1em;
+display: block;
+}
+.footer-nav {
+display: flex;
+justify-content: center;
+gap: 2rem;
+margin-bottom: 2rem;
+flex-wrap: wrap;
+}
+.footer-nav a {
+font-size: 0.72rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.3);
+text-decoration: none;
+transition: color 0.3s;
+}
+.footer-nav a:hover { color: var(–pale-gold); }
+footer p {
+font-size: 0.78rem;
+color: rgba(255,255,255,0.22);
+margin: 0 auto;
+line-height: 1.9;
+max-width: 600px;
+}
+footer a { color: var(–pale-gold); text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1000px) {
+.roles-grid { grid-template-columns: repeat(2, 1fr); }
+.process-steps { grid-template-columns: 1fr 1fr; }
+.question-cards { grid-template-columns: 1fr; }
+.included-grid { grid-template-columns: 1fr; gap: 3rem; }
+.investment-block { position: static; }
+}
+@media (max-width: 768px) {
+.hero { grid-template-columns: 1fr; min-height: auto; }
+.hero-visual { min-height: 60vh; padding: 120px 24px 60px; }
+.hero-form-panel { padding: 60px 24px; }
+.roles-grid { grid-template-columns: 1fr; }
+.who-grid { grid-template-columns: 1fr 1fr; }
+.discretion-strip .inner { grid-template-columns: 1fr; gap: 1rem; }
+.section-dark, .section-forest, .section-warm,
+.section-mist, .section-cream, .discretion-strip,
+.final-cta, footer { padding-left: 24px; padding-right: 24px; }
+nav { padding: 1rem 1.5rem; }
+.nav-link { display: none; }
+}
+@media (max-width: 500px) {
+.who-grid { grid-template-columns: 1fr; }
+.process-steps { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">🌿 Elysian Wells</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="apply.html" class="nav-link active">Apply</a>
+    <a href="apply.html" class="nav-cta">Apply Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-visual">
+    <div class="hero-visual-bg"></div>
+    <div class="hero-visual-content">
+      <div class="seats-counter">
+        <div class="seats-dot"></div>
+        <span class="seats-text">Applications Open · March 2026</span>
+      </div>
+      <span class="seats-number">10</span>
+      <span class="seats-label">of 12 seats remaining</span>
+      <h1>🫵 This is where<br>it <em>becomes real.</em></h1>
+      <div class="hero-visual-rule"></div>
+      <p>Ten seats remain in the founding circle. Leave your email and we will send you the full application form within 48 hours. This is not a waiting list — it is the beginning of a real conversation about whether you and Elysian Wells are the right fit for each other.</p>
+    </div>
+  </div>
+
+  <div class="hero-form-panel">
+    <span class="form-eyebrow">Step One</span>
+    <h2 class="form-heading">Request your<br>application form</h2>
+    <div class="form-rule"></div>
+    <p class="form-subheading">Enter your name and email address below. We will send you the full application form within 48 hours along with further details about the founding member process.</p>
+
+```
+<div class="email-form" id="emailForm">
+  <div class="input-wrap">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="name" placeholder="First and last name" autocomplete="name">
+  </div>
+  <div class="input-wrap" style="margin-bottom: 1.5rem;">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email">
+  </div>
+  <button class="submit-btn" onclick="handleSubmit(event)">
+    Request Application Form
+  </button>
+  <p class="form-privacy">Your information is held in strict confidence.<br>Location details disclosed only to accepted members.</p>
+</div>
+
+<div class="confirmation" id="confirmation">
+  <span class="confirmation-icon">🌿</span>
+  <h3>Thank you — we'll be in touch.</h3>
+  <p>Your request has been received. Expect your application form within 48 hours. In the meantime feel free to explore the rest of elysianwells.ca.</p>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- PROCESS -->
+
+<div class="section-dark">
+  <div class="inner">
+    <span class="label">The Process</span>
+    <h2>What happens after<br>you submit your email</h2>
+    <div class="line-divider"></div>
+    <p class="body">The selection process for Elysian Wells is personal and deliberate. We are not filling seats — we are building a founding circle. Every step is designed with that intention.</p>
+
+```
+<div class="process-steps">
+  <div class="step">
+    <span class="step-num">01</span>
+    <span class="step-icon">📬</span>
+    <h4>Application Form Sent</h4>
+    <p>Within 48 hours you receive the full written application — a thoughtful questionnaire covering your background, values, skills, and vision. Estimated completion: 20–30 minutes.</p>
+  </div>
+  <div class="step">
+    <span class="step-num">02</span>
+    <span class="step-icon">📋</span>
+    <h4>Written Review</h4>
+    <p>Your application is reviewed personally by the founding director. Honest, considered answers carry more weight than impressive ones.</p>
+  </div>
+  <div class="step">
+    <span class="step-num">03</span>
+    <span class="step-icon">🎙️</span>
+    <h4>Video Interview</h4>
+    <p>Qualified applicants are invited to a video conversation with David — a mutual discussion to determine whether the fit is genuine on both sides.</p>
+  </div>
+  <div class="step">
+    <span class="step-num">04</span>
+    <span class="step-icon">🌿</span>
+    <h4>Selection & Placement</h4>
+    <p>Accepted members are placed into Year 1, 2, or 3 cohorts. You join the private founding Telegram group immediately — the process begins from day one.</p>
+  </div>
+</div>
+<p style="font-size: 0.85rem; color: rgba(248,244,237,0.35); font-style: italic; margin-top: 0.5rem;">The application process closes once thirty qualified candidates have been identified for interview.</p>
+```
+
+  </div>
+</div>
+
+<!-- PREVIEW QUESTIONS -->
+
+<div class="section-forest">
+  <div class="inner">
+    <span class="label">A Preview</span>
+    <h2>The questions we will ask you</h2>
+    <div class="line-divider"></div>
+    <p class="body">The full application form is sent privately after you submit your email. These three questions give you a sense of what we are looking for — and whether this is something you are genuinely ready to answer.</p>
+
+```
+<div class="question-cards">
+  <div class="question-card">
+    <span class="question-number">Question 01</span>
+    <h4>What brings you to Elysian Wells?</h4>
+    <p>Not what you are running from — what you are running toward. We are looking for people who can articulate a positive vision, not merely a dissatisfaction with the present.</p>
+  </div>
+  <div class="question-card">
+    <span class="question-number">Question 02</span>
+    <h4>What skills do you bring?</h4>
+    <p>Formal credentials are not required. A lifelong gardener or self-taught builder carries equal weight to any professional qualification. What can you do with your hands and your mind?</p>
+  </div>
+  <div class="question-card">
+    <span class="question-number">Question 03</span>
+    <h4>Which stewardship role resonates with you?</h4>
+    <p>Every member holds a named role responsible for a specific domain of community life. Explore the eleven roles below — which one calls to you, and why?</p>
+  </div>
+</div>
+<p class="questions-note">The full application contains sixteen questions across five sections.</p>
+```
+
+  </div>
+</div>
+
+<!-- STEWARDSHIP ROLES -->
+
+<div class="section-cream">
+  <div class="inner">
+    <span class="label dark">The Stewardship Circle</span>
+    <h2>Eleven roles.<br>Every domain of life covered.</h2>
+    <div class="line-divider dark"></div>
+    <div class="roles-intro">
+      <p>Every founding member of Elysian Wells holds a named stewardship role — a specific domain of community life that is yours to tend, develop, and take pride in. These are not job titles. They are callings. Read through the eleven roles below and notice which one resonates. Your answer to Question 03 begins here.</p>
+    </div>
+
+```
+<div class="roles-grid">
+
+  <!-- 1 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🏗️</span>
+        <div class="role-names">
+          <span class="role-title">Hearthwarden</span>
+          <span class="role-subtitle">Infrastructure & Emergency Response</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You are the builder and guardian of the physical community — maintaining structures, overseeing earthbag construction, managing tools and materials, and leading the physical response in any emergency. The community stands because you keep it standing.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">General contractor · Carpenter · Civil engineer · Builder · Fire safety officer · Military veteran · Emergency management professional</span>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🌱</span>
+        <div class="role-names">
+          <span class="role-title">Seedbearer</span>
+          <span class="role-subtitle">Food Systems & Land Stewardship</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You tend the land that feeds the community — planning gardens and food forests, managing water systems, building soil health, saving seeds, keeping bees, and growing the medicinal herb garden. The living foundation of community resilience.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Organic farmer · Permaculture designer · Horticulturalist · Herbalist · Naturopath · Water systems technician · Landscape architect · Beekeeper</span>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🌀</span>
+        <div class="role-names">
+          <span class="role-title">Circleweaver</span>
+          <span class="role-subtitle">Healing, Wellness & Ceremony</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You hold the human heart of the community — facilitating dialogue, mediating conflict, leading ceremonies, providing healing and health support, producing herbal medicines, overseeing childcare and physical wellness, and tending the spiritual and emotional wellbeing of every member.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Shaman · Healer · Therapist · Counsellor · Nurse · Paramedic · Naturopath · Spiritual director · Yoga teacher · Ceremonial leader · Palliative care professional</span>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🌉</span>
+        <div class="role-names">
+          <span class="role-title">Bridgewalker</span>
+          <span class="role-subtitle">External Relations & Legal Liaison</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You are the community's voice to the outside world — managing legal and immigration matters, building relationships with local communities and authorities, coordinating procurement and supply runs, and representing Elysian Wells officially. Spanish fluency is essential for this role.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Lawyer · Paralegal · Diplomat · Public relations professional · Bilingual community organizer · Marketing professional · Immigration consultant · Entrepreneur</span>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🎨</span>
+        <div class="role-names">
+          <span class="role-title">Dreamkeeper</span>
+          <span class="role-subtitle">Culture, Arts & Aesthetics</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You are the keeper of beauty and meaning — curating the community's cultural identity, stewarding the aesthetic experience of all shared spaces, coordinating creative projects, supporting ceremonies aesthetically, telling the community's story to the world, and fostering intellectual life through the archive and library.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Artist · Filmmaker · Photographer · Writer · Musician · Graphic designer · Architect · Interior designer · Landscape designer · Educator · Cultural curator</span>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">📚</span>
+        <div class="role-names">
+          <span class="role-title">Lorekeeper</span>
+          <span class="role-subtitle">Records, Archive & Community Memory</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You are the keeper of knowledge — maintaining community records, stewarding the 10TB digital archive and physical library, documenting history and decisions, scheduling community life, and developing the Elysian Wells replication blueprint for the world to use.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Librarian · Archivist · Historian · Researcher · Academic · Technical writer · Data analyst · Anthropologist · Journalist</span>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">⚙️</span>
+        <div class="role-names">
+          <span class="role-title">Forgehand</span>
+          <span class="role-subtitle">Mechanics, Vehicles & Solar Hardware</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You keep everything running — maintaining and repairing all mechanical equipment, vehicles, solar hardware, generators, and small engines. You are also the community's primary driver, conducting weekly supply runs in coordination with the Bridgewalker. The community depends on your hands every single day.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Mechanic · Automotive technician · Diesel technician · Small engine repair specialist · Solar systems technician · Welder · Millwright · Farm equipment operator · Licensed driver</span>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🌻</span>
+        <div class="role-names">
+          <span class="role-title">Pollinator</span>
+          <span class="role-subtitle">Enterprise & Community Economy</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You grow the community's economic life — developing income ventures, managing the internal Elysian Hour currency, overseeing bookkeeping and financial planning, and opening pathways for every member to thrive financially within and beyond the community.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Entrepreneur · Accountant · Bookkeeper · Business developer · Financial planner · Marketing professional · E-commerce specialist · Social enterprise manager</span>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🍳</span>
+        <div class="role-names">
+          <span class="role-title">Nesttender</span>
+          <span class="role-subtitle">Kitchen, Nourishment & Food Preservation</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You nourish the community daily — cooking shared meals, preserving and inventorying the harvest, managing the kitchen, caring for the chickens, and ensuring that the table is always a place of warmth, abundance, and connection.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Chef · Cook · Nutritionist · Food preservationist · Fermentation specialist · Dietitian · Homesteader · Farm to table cook · Catering professional</span>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">⚡</span>
+        <div class="role-names">
+          <span class="role-title">Lightweaver</span>
+          <span class="role-subtitle">Electrical, IT & Communications</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You are the invisible infrastructure of the community — keeping the power on, the network running, the data secure, and the community connected. You manage physical security systems, maintain emergency communication channels including shortwave radio, and coordinate with Forgehand on solar and generator integration.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Electrician · Electrical engineer · IT professional · Network administrator · Cybersecurity specialist · Solar systems installer · Systems engineer · Ham radio operator · Security systems technician</span>
+    </div>
+  </div>
+
+  <!-- 11 -->
+  <div class="role-card" onclick="toggleRole(this)">
+    <div class="role-header">
+      <div class="role-header-left">
+        <span class="role-emoji">🧭</span>
+        <div class="role-names">
+          <span class="role-title">Initiate</span>
+          <span class="role-subtitle">Apprenticeship & Cross-Role Support</span>
+        </div>
+      </div>
+      <div class="role-toggle">+</div>
+    </div>
+    <div class="role-body">
+      <p class="role-description">You are the community's generalist and successor-in-training — rotating through every stewardship domain, supporting wherever needed, and developing the broad competence that makes the community unbreakable. The role for someone who knows a little about everything and wants to learn the rest.</p>
+      <span class="role-candidates-label">Ideal backgrounds</span>
+      <span class="role-candidates">Career changer · Recent graduate · Multi-disciplinary professional · Renaissance person · Adaptable generalist with genuine commitment to community life</span>
+    </div>
+  </div>
+
+</div>
+<p class="roles-note">Full role documentation including detailed responsibilities and the Elysian Wells Covenant provided to all accepted founding members.</p>
+```
+
+  </div>
+</div>
+
+<!-- WHO SHOULD APPLY -->
+
+<div class="section-warm">
+  <div class="inner">
+    <span class="label moss">Is This You?</span>
+    <h2>Who belongs here</h2>
+    <div class="line-divider dark"></div>
+    <p class="body">Elysian Wells is not for everyone — and that is intentional. It is for the specific kind of person who has been thinking about something like this, in one form or another, for years. If you find yourself in one of these descriptions, you may be exactly who we are looking for.</p>
+
+```
+<div class="who-grid">
+  <div class="who-card">
+    <span class="who-icon">🌐</span>
+    <h4>Digital Nomads</h4>
+    <p>Seeking a peaceful, permanent home base that doesn't compromise freedom or connectivity.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🔧</span>
+    <h4>Makers & Builders</h4>
+    <p>Who need land, tools, time, and like-minded people to build things that last.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🌿</span>
+    <h4>Growers & Healers</h4>
+    <p>With knowledge in permaculture, herbalism, food systems, or natural medicine — and the land to finally apply it.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🎨</span>
+    <h4>Creators & Thinkers</h4>
+    <p>Who thrive on freedom, silence, and the company of genuinely curious people with time to think.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🗺️</span>
+    <h4>The Adventurer & Nature Lover</h4>
+    <p>For whom life is an expedition and the natural world is home. Latin America offers cloud forests, ancient megalithic sites, volcanic landscapes, and the Galápagos within reach. Elysian Wells is a base of operations for a life of genuine discovery.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🌅</span>
+    <h4>Retirees With More to Give</h4>
+    <p>Decades of hard-won skills and the time and energy to invest them in something real. Your experience is a gift to the community — and the community gives back land, belonging, and a second act worth living.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🌙</span>
+    <h4>The Spiritual Seeker</h4>
+    <p>Someone who wants a genuine spiritual practice woven into daily life, not squeezed into a weekend. Drawn to ceremony, sacred landscape, and inner work. An introvert who thrives in silence but not in isolation — the community provides the depth of connection without the noise.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🤝</span>
+    <h4>The Collaborator</h4>
+    <p>Who does their best work alongside people genuinely invested in each other's success. Twelve skill sets, daily proximity, and shared purpose — mentorship and mutual support arise naturally.</p>
+  </div>
+  <div class="who-card">
+    <span class="who-icon">🎯</span>
+    <h4>The Pattern Recognition Expert</h4>
+    <p>Someone with a finely calibrated BS detector who has watched the system closely enough to know where it is heading — and has decided to be positioned somewhere else when it arrives. Sovereignty, resilience, and a plan that works whether the system holds or doesn't.</p>
+  </div>
+</div>
+<p class="body" style="font-style: italic; font-size: 0.9rem; color: #666;"><em>Couples must each submit individual applications. One dependent included per member. Disabilities are welcome.</em></p>
+```
+
+  </div>
+</div>
+
+<!-- COMMITMENT SECTION -->
+
+<div class="section-dark">
+  <div class="inner">
+    <span class="label">Before You Apply</span>
+    <h2>This is a serious<br>endeavour. Beautifully so.</h2>
+    <div class="line-divider"></div>
+
+```
+<p class="body">If you have read the Home and About pages and something in you recognised what is being described — that recognition is worth taking seriously. Applying is not a commitment. It is a conversation. The selection process exists precisely so that both sides can be certain before anything is signed, paid, or packed.</p>
+
+<p class="body">What is being asked of you is real: five years, ten hours a week, and the willingness to show up for eleven other people the way you want them to show up for you. What you receive in return is also real: land, a home, a community, financial resilience, clean food, clean water, and the rare satisfaction of having built something that will outlast you.</p>
+
+<p class="body">Elysian Wells was not designed for people who are almost ready. It was designed for people who have been ready for a long time and simply haven't found the right thing to say yes to. If that is you — this is it.</p>
+
+<!-- COMMITMENT ITEMS -->
+<div style="margin: 3rem 0; border-top: 1px solid rgba(255,255,255,0.08);">
+
+  <div style="padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.8rem;">
+      <span style="font-size: 1.4rem;">🌳</span>
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: #D4A853;">Five-Year Founding Commitment</span>
+    </div>
+    <p style="font-size: 0.92rem; line-height: 1.85; color: rgba(248,244,237,0.6); margin: 0; padding-left: 2.6rem;">Founding members commit to a minimum of five years. This is not a retreat, a trial, or an extended holiday. It is the time required to build something that will outlast any one of us. The founding years are the most important years — and they need the founding circle present and committed to see them through.</p>
+  </div>
+
+  <div style="padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.8rem;">
+      <span style="font-size: 1.4rem;">🤝</span>
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: #D4A853;">Ten Hours Per Week</span>
+    </div>
+    <p style="font-size: 0.92rem; line-height: 1.85; color: rgba(248,244,237,0.6); margin: 0; padding-left: 2.6rem;">Every founding member contributes ten hours per week to community life — tending their stewardship role, participating in shared work, and showing up for the community that is showing up for them. The remaining time is entirely your own: your work, your creative life, your exploration. Ten hours is a contribution, not a sacrifice.</p>
+  </div>
+
+  <div style="padding: 2rem 0;">
+    <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.8rem;">
+      <span style="font-size: 1.4rem;">🔑</span>
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: #D4A853;">Land Lease Portability at Year Three</span>
+    </div>
+    <p style="font-size: 0.92rem; line-height: 1.85; color: rgba(248,244,237,0.6); margin: 0; padding-left: 2.6rem;">Your land lease becomes fully transferable at the beginning of Year Three. The first two years are the foundation — the period when the community most needs its full circle in place. After Year Three, the community stands on its own, and your equity becomes yours to carry. A dignified exit is always available to those who have honoured their commitment.</p>
+  </div>
+
+</div>
+
+<p style="font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; color: rgba(248,244,237,0.38); text-align: center; max-width: 680px; margin: 0 auto; line-height: 1.8;">Most people who feel called to something like this never act on it. The twelve who do will spend the rest of their lives knowing they were the ones who actually chose differently.</p>
+```
+
+  </div>
+</div>
+
+<!-- PHOTO BEFORE INCLUDED -->
+
+<div style="height: 420px; position: relative; overflow: hidden;">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=80" alt="Mountain landscape at golden hour" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+  <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,58,42,0.7) 0%, rgba(28,58,42,0.1) 60%, transparent 100%);"></div>
+  <span style="position: absolute; bottom: 2rem; left: 2.5rem; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,244,237,0.45);">Elysian Wells · Everything Included</span>
+</div>
+
+<!-- WHAT'S INCLUDED -->
+
+<div class="section-mist">
+  <div class="inner">
+    <div class="included-grid">
+      <div>
+        <span class="label moss">What You Receive</span>
+        <h2>Everything included.<br>Nothing hidden.</h2>
+        <div class="line-divider dark"></div>
+        <p class="body">The founding investment covers everything required to become a fully established member of Elysian Wells — residency, land, home, and community. No hidden costs, no ongoing mortgage, no undisclosed obligations.</p>
+        <ul class="feature-list">
+          <li>Legal residency through a straightforward immigration pathway — accessible to North Americans, Europeans, and Australians. Permanent residency achievable within approximately 24 months.</li>
+          <li>A guaranteed minimum one-acre private plot — your land, your space, your sovereignty</li>
+          <li>An 850 sq ft custom earthbag home — community-built, off-grid solar powered, fire and termite resistant, naturally temperature-regulated</li>
+          <li>Clean spring and rainwater supply — zero municipal dependency, zero pharmaceutical residue</li>
+          <li>Year-round access to community organic gardens, orchards, and food forests</li>
+          <li>Shared community infrastructure — workshop, communal kitchen, vehicles, gathering spaces</li>
+          <li>A 10TB digital archive of books, music, films, and games plus a curated physical library</li>
+          <li>Community internet via shared VPN — privacy-first, no individual home accounts</li>
+          <li>Participation in community profit-sharing as enterprises develop</li>
+          <li>Annual community dues under $2,000 per person — trending toward zero</li>
+          <li>A clear, dignified exit pathway — land lease becomes fully transferable at Year Three following completion of the founding commitment period</li>
+        </ul>
+      </div>
+      <div>
+        <div class="investment-block">
+          <span class="investment-label">One-Time Founding Investment</span>
+          <span class="investment-amount">$88,800</span>
+          <span class="investment-currency">USD · All Inclusive</span>
+          <div class="investment-divider"></div>
+          <p>A single founding investment covers your residency, land, home, and full community membership. No mortgage. No rent. No hidden obligations.</p>
+          <p class="investment-note">Full financial documentation and a detailed investment breakdown are provided to all applicants prior to any funds being committed. Complete transparency from the first conversation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+
+<div class="final-cta">
+  <div class="inner">
+    <span class="label" style="display:block; margin-bottom: 1rem;">The Founding Circle</span>
+    <h2>Ten seats remain.<br>The circle is forming now.</h2>
+    <p>If something in you recognises what Elysian Wells is trying to build — trust that recognition. Leave your email. We'll take it from there.</p>
+    <p class="final-cta-closing">Because if not us — then who? If not now — when?</p>
+    <button class="final-cta-btn" onclick="scrollToForm()">Request Application Form</button>
+  </div>
+</div>
+
+<!-- DISCRETION NOTE -->
+
+<div class="discretion-strip">
+  <div class="inner">
+    <div class="discretion-icon">🔒</div>
+    <div>
+      <h4>A note on discretion</h4>
+      <p>The specific location of Elysian Wells is disclosed exclusively to accepted founding members following the completion of the selection process and execution of a membership agreement. Your personal information is held in strict confidence and will never be shared with third parties. We use end-to-end encrypted communication throughout the application process.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <span class="footer-logo">🌿 Elysian Wells</span>
+  <span style="font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic; font-weight: 300; color: #D4A853; letter-spacing: 0.12em; display: block; margin-top: 0; margin-bottom: 2rem;">a mythopoetic community based in a beautiful part of Latin America</span>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="apply.html">Apply</a>
+    <a href="https://elysianwells.ca">elysianwells.ca</a>
+  </div>
+  <p>
+    <a href="mailto:elysianwells@proton.me">elysianwells@proton.me</a><br><br>
+    Elysian Wells is a privately organized intentional community project. Specific location details are disclosed exclusively to accepted founding members. This page is for informational purposes only and does not constitute a legal or financial commitment.<br><br>
+    © 2026 Elysian Wells. All rights reserved.
+  </p>
+</footer>
+
+<script>
+  // Navbar scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  // Toggle role cards
+  function toggleRole(card) {
+    const isOpen = card.classList.contains('open');
+    // Close all open cards
+    document.querySelectorAll('.role-card.open').forEach(c => c.classList.remove('open'));
+    // Open clicked if it wasn't already open
+    if (!isOpen) card.classList.add('open');
+  }
+
+  // Form submission
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name  = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!name || !email) { alert('Please enter both your name and email address.'); return; }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) { alert('Please enter a valid email address.'); return; }
+    const subject = encodeURIComponent('Elysian Wells — Application Request');
+    const body = encodeURIComponent(`Hello,\n\nI would like to request the Elysian Wells application form.\n\nName: ${name}\nEmail: ${email}\n\nThank you.`);
+    window.location.href = `mailto:elysianwells@proton.me?subject=${subject}&body=${body}`;
+    document.getElementById('emailForm').style.display = 'none';
+    document.getElementById('confirmation').style.display = 'block';
+  }
+
+  // Scroll to form
+  function scrollToForm() {
+    document.getElementById('emailForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+
+</body>
+</html>
